@@ -22,4 +22,9 @@ class LatestUsersWidget extends TableWidget
             TextColumn::make('created_at')->humanDate() ->label(__('filament-authentication::filament-authentication.field.user.created_at'))
         ];
     }
+
+    protected function isTablePaginationEnabled(): bool
+    {
+        return false;
+    }
 }

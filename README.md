@@ -1,6 +1,6 @@
-# Filament User Authentication
+# Filament Dad Jokes Widget
 
-User Resource For Filament Admin along with Roles & Permissions using Spatie
+With DadJokes every time you load your control panel you'll be greeted by an epic dad joke on the dashboard.
 
 ## Installation
 
@@ -8,58 +8,8 @@ User Resource For Filament Admin along with Roles & Permissions using Spatie
 You can install the package via composer:
 
 ```bash
-composer require phpsa/filament-authentication
+composer require phpsa/filament-dadjokes
 ```
-
-and now clear cache
-
-```bash
-php artisan optimize:clear
-```
-
-and publish config
-```bash
-php artisan vendor:publish --tag=filament-authentication-config
-```
-
-and optionally views / translations
-```bash
-artisan vendor:publish --tag=filament-authentication-views
-artisan vendor:publish --tag=filament-authentication-translations
-```
-
-## Security
-Roles & Permissions can be secured using Laravel Policies,
-create your policies and register then in the AuthServiceProvider
-
-```php
- protected $policies = [
-        Role::class       => RolePolicy::class,
-        Permission::class => PermissionPolicy::class
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-    ];
-```
-
-## Widgets
-adding  ` \Phpsa\FilamentAuthentication\Widgets\LatestUsersWidget::class` to the widgets in the filament.php config file will attach the LatestUsersWidget to your dashboard
-
-## Profile
-Profile view for currently authed user
-
-## Extending
-Extend Profile:
-```php
-<?php
-
-namespace App\Filament\Pages;
-
-use Filament\Pages\Page;
-use Phpsa\FilamentAuthentication\Pages\Profile as PagesProfile;
-
-class Profile extends PagesProfile
-{}
-```
-or the view: `resources/views/vendor/filament-authentication/filament/pages/profile.blade.php` (you can publish existing one)
 
 ## Changelog
 
