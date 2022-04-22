@@ -2,10 +2,23 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages;
 
-use Phpsa\FilamentAuthentication\Resources\PermissionResource;
+use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\EditRecord;
+use Spatie\Permission\Contracts\Permission;
 
 class EditPermission extends EditRecord
 {
-    protected static string $resource = PermissionResource::class;
+    public static function getResource(): string
+    {
+        return Config::get('filament-authentication.resources.PermissionResource');
+    }
+
+    public function afterSave(): void
+    {
+        if (! $this->record instanceof Permission) {
+            return;
+        }
+
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
+    }
 }

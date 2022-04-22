@@ -2,10 +2,13 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages;
 
-use Phpsa\FilamentAuthentication\Resources\PermissionResource;
+use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewPermission extends ViewRecord
 {
-    protected static string $resource = PermissionResource::class;
+    public static function getResource(): string
+    {
+        return Config::get('filament-authentication.resources.PermissionResource');
+    }
 }

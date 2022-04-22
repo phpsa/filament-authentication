@@ -2,10 +2,13 @@
 
 namespace  Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
-use Phpsa\FilamentAuthentication\Resources\UserResource;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Config;
 
 class CreateUser extends CreateRecord
 {
-    protected static string $resource = UserResource::class;
+    public static function getResource(): string
+    {
+        return Config::get('filament-authentication.resources.UserResource');
+    }
 }
