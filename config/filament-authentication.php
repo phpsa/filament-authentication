@@ -9,6 +9,12 @@ return [
     'pages' => [
         'Profile' => \Phpsa\FilamentAuthentication\Pages\Profile::class
     ],
+    'Widgets' => [
+        'LatesetUsers' => [
+            'enabled' => true,
+            'limit' => 5,
+        ],
+    ],
     'user_timezone' => 'Pacific/Auckland',
     'preload_roles' => true
 
