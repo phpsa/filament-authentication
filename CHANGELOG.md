@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/phpsa/filament-authentication/compare/v1.0.0...v1.0.1) (2022-04-22)
+
+
+### Bug Fixes
+
+* set page resources to use config value for resource ([f239ca9](https://github.com/phpsa/filament-authentication/commit/f239ca9ab732895147e1cc606780870ce8bf58df))
+
 # 1.0.0 (2022-04-20)
 
 
