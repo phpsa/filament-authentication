@@ -2,18 +2,20 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages;
 
-// use Phpsa\FilamentAuthentication\Resource\PermissionResource;
-
-use Phpsa\FilamentAuthentication\Resources\PermissionResource;
-use Filament\Forms\Components\Select;
-use Filament\Resources\Pages\ListRecords;
-use Filament\Tables\Actions\BulkAction;
-use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Role;
+use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Config;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Collection;
 
 class ListPermissions extends ListRecords
 {
-    protected static string $resource = PermissionResource::class;
+    public static function getResource(): string
+    {
+        return Config::get('filament-authentication.resources.PermissionResource');
+    }
+
 
     protected function getTableBulkActions(): array
     {
@@ -28,7 +30,7 @@ class ListPermissions extends ListRecords
             })
             ->form([
                 Select::make('role')
-                    ->label(__('filament-spatie-roles-permissions::filament-spatie.field.role'))
+                    ->label(__('filament-authentication::filament-authentication.field.role'))
                     ->options(Role::query()->pluck('name', 'id'))
                     ->required(),
             ])->deselectRecordsAfterCompletion()

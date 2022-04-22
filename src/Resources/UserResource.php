@@ -78,8 +78,6 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
 
-        $userTimeZone = config('request.user.timezone', config('filament-authentication.user_timezone', config('app.timezone')));
-
         return $table
             ->columns([
                 TextColumn::make('id')
@@ -111,7 +109,7 @@ class UserResource extends Resource
                 TagsColumn::make('roles.name')
                     ->label(__('filament-authentication::filament-authentication.field.user.roles')),
                 TextColumn::make('created_at')
-                    ->dateTime("Y-m-d H:i:s", $userTimeZone)
+                    ->dateTime("Y-m-d H:i:s", static::getUserTimezone())
                     ->label(__('filament-authentication::filament-authentication.field.user.created_at'))
             ])
             ->filters([
@@ -137,12 +135,17 @@ class UserResource extends Resource
             'index'  => ListUsers::route('/'),
             'create' => CreateUser::route('/create'),
             'edit'   => EditUser::route('/{record}/edit'),
-         //   'view'   => ViewUser::route('/{record}')
+            'view'   => ViewUser::route('/{record}')
         ];
     }
 
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->with('roles');
+    }
+
+    public static function getUserTimezone(): string
+    {
+        return config('request.user.timezone', config('filament-authentication.user_timezone', config('app.timezone', 'UTC')));
     }
 }

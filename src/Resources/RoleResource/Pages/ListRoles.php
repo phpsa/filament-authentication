@@ -2,10 +2,13 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\RoleResource\Pages;
 
-use Phpsa\FilamentAuthentication\Resources\RoleResource;
+use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\ListRecords;
 
 class ListRoles extends ListRecords
 {
-    protected static string $resource = RoleResource::class;
+    public static function getResource(): string
+    {
+        return Config::get('filament-authentication.resources.RoleResource');
+    }
 }
