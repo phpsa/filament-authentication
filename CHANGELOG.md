@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/phpsa/filament-authentication/compare/v1.0.1...v1.1.0) (2022-04-23)
+
+
+### Features
+
+* allow enable / disable / config of user widget ([74329cb](https://github.com/phpsa/filament-authentication/commit/74329cb4ff4db269796a9bb8750f8d39a9452dfa))
+* User Impersonation ([fb30d9e](https://github.com/phpsa/filament-authentication/commit/fb30d9e2b47d5a8f04a5ac12fa22782b51c0556e))
+
 ## [1.0.1](https://github.com/phpsa/filament-authentication/compare/v1.0.0...v1.0.1) (2022-04-22)
 
 
