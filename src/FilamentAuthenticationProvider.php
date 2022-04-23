@@ -7,8 +7,12 @@ use Filament\Facades\Filament;
 use Filament\PluginServiceProvider;
 use Filament\Navigation\UserMenuItem;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Config;
 use Spatie\LaravelPackageTools\Package;
 use Phpsa\FilamentAuthentication\Pages\Profile;
+use Lab404\Impersonate\Services\ImpersonateManager;
+use Phpsa\FilamentAuthentication\Http\Middleware\ImpersonatingMiddleware;
 use Phpsa\FilamentAuthentication\Widgets\LatestUsersWidget;
 
 class FilamentAuthenticationProvider extends PluginServiceProvider
@@ -27,9 +31,12 @@ class FilamentAuthenticationProvider extends PluginServiceProvider
 
     public function configurePackage(Package $package): void
     {
+        Config::push('filament.middleware.base', ImpersonatingMiddleware::class);
+
         $package->name('filament-authentication')
             ->hasConfigFile()
             ->hasViews()
+            ->hasRoute('web')
             ->hasTranslations();
     }
 

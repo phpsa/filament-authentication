@@ -4,11 +4,12 @@
 
         <div class="flex flex-wrap items-center gap-4 justify-end">
             <x-filament::button type="submit">
-                Save
+            {{ __('filament::resources/pages/edit-record.form.actions.save.label')) }}
             </x-filament::button>
 
+
             <x-filament::button type="button" color="secondary" tag="a" :href="$this->cancel_button_url">
-                Cancel
+                {{__('filament::resources/pages/edit-record.form.actions.cancel.label')}}
             </x-filament::button>
         </div>
     </form>

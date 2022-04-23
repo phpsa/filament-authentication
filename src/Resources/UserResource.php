@@ -15,6 +15,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\BelongsToManyMultiSelect;
+use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ListUsers;
@@ -119,6 +120,9 @@ class UserResource extends Resource
                 Filter::make('unverified')
                 ->label(__('filament-authentication::filament-authentication.filter.unverified'))
                     ->query(fn (Builder $query): Builder => $query->whereNull('email_verified_at')),
+            ])
+            ->prependActions([
+                ImpersonateLink::make()
             ]);
     }
 

@@ -53,7 +53,7 @@ class Profile extends Page
         auth()->user()->update($state);
 
         $this->reset(['current_password', 'new_password', 'new_password_confirmation']);
-        $this->notify('success', 'Your profile has been updated.');
+        $this->notify('success', __('filament::resources/pages/edit-record.messages.saved'));
     }
 
     public function getCancelButtonUrlProperty()

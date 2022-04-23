@@ -47,4 +47,7 @@ return [
     'filter.verified'               => 'Only Verified',
     'filter.unverified'             => 'Only Un-Verified',
 
+    'button.impersonate'            => "Impersonate User",
+    'text.impersonating'            => 'Impersonating User: ',
+    'text.impersonating.end'        => ' - End Impersonation ',
 ];

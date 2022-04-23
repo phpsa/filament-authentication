@@ -16,7 +16,11 @@ return [
         ],
     ],
     'user_timezone' => 'Pacific/Auckland',
-    'preload_roles' => true
-
+    'preload_roles' => true,
+    'impersonate' => [
+        'enabled' => true,
+        'guard' => 'web',
+        'redirect' => '/'
+        ]
 
 ];
