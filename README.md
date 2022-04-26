@@ -32,6 +32,32 @@ artisan vendor:publish --tag=filament-authentication-views
 artisan vendor:publish --tag=filament-authentication-translations
 ```
 
+## Additional Resources:
+### Spatie Roles & Permissions
+If you have not yet configured this package it is automatically added by this installer, run the following steps:
+
+1. You should publish the migration and the config/permission.php config file with:
+
+```php
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+php artisan migrate
+```
+
+2. Add the `Spatie\Permission\Traits\HasRoles` trait to your Users model
+
+3. Add Roles & Permissions as required
+
+For more see: https://spatie.be/docs/laravel-permission/v5/introduction
+
+
+
+### Laravel Impersonate
+If you have not configured this package it is automatically added by this install, run the following steps:
+
+1. Add the trait `Lab404\Impersonate\Models\Impersonate` to your User model.
+2. Setup your permissions: https://github.com/404labfr/laravel-impersonate#defining-impersonation-authorization
+
+
 ## Security
 Roles & Permissions can be secured using Laravel Policies,
 create your policies and register then in the AuthServiceProvider
@@ -64,6 +90,12 @@ class Profile extends PagesProfile
 {}
 ```
 or the view: `resources/views/vendor/filament-authentication/filament/pages/profile.blade.php` (you can publish existing one)
+
+## Intergration with other packages:
+** Comming soon **
+
+- https://filamentphp.com/plugins/socialite
+- https://filamentphp.com/plugins/2fa
 
 ## Changelog
 
