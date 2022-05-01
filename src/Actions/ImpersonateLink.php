@@ -6,7 +6,7 @@ use Livewire\Redirector;
 use Filament\Facades\Filament;
 use Filament\Tables\Actions\Action;
 use Lab404\Impersonate\Impersonate;
-use Illuminate\Foundation\Auth\User;
+use Illuminate\Contracts\Auth\Authenticatable as User;
 use Illuminate\Http\RedirectResponse;
 use Lab404\Impersonate\Services\ImpersonateManager;
 
@@ -25,8 +25,8 @@ class ImpersonateLink
     /**
      * Undocumented function
      *
-     * @param \Illuminate\Foundation\Auth\User $current
-     * @param \Illuminate\Foundation\Auth\User&\Lab404\Impersonate\Models\Impersonate $target
+     * @param Illuminate\Contracts\Auth\Authenticatable $current
+     * @param Illuminate\Contracts\Auth\Authenticatable&\Lab404\Impersonate\Models\Impersonate $target
      *
      * @return bool
      */

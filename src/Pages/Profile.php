@@ -2,13 +2,20 @@
 
 namespace Phpsa\FilamentAuthentication\Pages;
 
+use Filament\Pages\Page;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Grid;
+use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
+use Illuminate\Validation\Rules\Password;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Pages\Page;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @TODO - fix translations
+ * @property \Filament\Forms\ComponentContainer $form
+ */
 class Profile extends Page
 {
     use InteractsWithForms;
@@ -17,46 +24,60 @@ class Profile extends Page
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public $name;
-
-    public $email;
-
-    public $current_password;
-
-    public $new_password;
-
-    public $new_password_confirmation;
+    /**
+     * @var array<string, string>
+     */
+    public array $formData;
 
     protected static function shouldRegisterNavigation(): bool
     {
         return false;
     }
 
-    public function mount()
+    protected function getFormStatePath(): string
+    {
+        return 'formData';
+    }
+
+    protected function getFormModel(): Model
+    {
+        $user = Filament::auth()->user();
+        // @phpstan-ignore-next-line
+        return $user;
+    }
+
+    public function mount(): void
     {
         $this->form->fill([
-            'name'  => auth()->user()->name,
-            'email' => auth()->user()->email,
+            // @phpstan-ignore-next-line
+            'name'  =>  $this->getFormModel()->name,
+            // @phpstan-ignore-next-line
+            'email' =>  $this->getFormModel()->email,
         ]);
     }
 
-    public function submit()
+    public function submit(): void
     {
-        $this->form->getState();
+
+        $data = $this->form->getState();
 
         $state = array_filter([
-            'name'     => $this->name,
-            'email'    => $this->email,
-            'password' => $this->new_password ? Hash::make($this->new_password) : null,
+            'name'     => $data['name'],
+            'email'    => $data['email'],
+            'password' => $data['new_password'] ? Hash::make($data['new_password']) : null,
         ]);
 
-        auth()->user()->update($state);
+        $this->getFormModel()->update($state);
 
-        $this->reset(['current_password', 'new_password', 'new_password_confirmation']);
-        $this->notify('success', __('filament::resources/pages/edit-record.messages.saved'));
+        if ($data['new_password']) {
+            // @phpstan-ignore-next-line
+            Filament::auth()->login($this->getFormModel(), (bool)$this->getFormModel()->getRememberToken());
+        }
+
+        $this->notify('success', strval(__('filament::resources/pages/edit-record.messages.saved')));
     }
 
-    public function getCancelButtonUrlProperty()
+    public function getCancelButtonUrlProperty(): string
     {
         return static::getUrl();
     }
@@ -94,8 +115,7 @@ class Profile extends Page
                         ->schema([
                             TextInput::make('new_password')
                                 ->label('New Password')
-                                ->password()
-                                ->rules(['confirmed'])
+                                ->rules(['confirmed', Password::defaults()])
                                 ->autocomplete('new-password'),
                             TextInput::make('new_password_confirmation')
                                 ->label('Confirm Password')

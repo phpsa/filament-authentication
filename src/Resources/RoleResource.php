@@ -25,17 +25,17 @@ class RoleResource extends Resource
 
     public static function getLabel(): string
     {
-        return __('filament-authentication::filament-authentication.section.role');
+        return strval(__('filament-authentication::filament-authentication.section.role'));
     }
 
     protected static function getNavigationGroup(): ?string
     {
-        return __('filament-authentication::filament-authentication.section.group');
+        return strval(__('filament-authentication::filament-authentication.section.group'));
     }
 
     public static function getPluralLabel(): string
     {
-        return __('filament-authentication::filament-authentication.section.roles');
+        return strval(__('filament-authentication::filament-authentication.section.roles'));
     }
 
     public static function form(Form $form): Form
@@ -47,12 +47,12 @@ class RoleResource extends Resource
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('name')
-                                    ->label(__('filament-authentication::filament-authentication.field.name')),
+                                    ->label(strval(__('filament-authentication::filament-authentication.field.name'))),
                                 TextInput::make('guard_name')
-                                    ->label(__('filament-authentication::filament-authentication.field.guard_name'))
+                                    ->label(strval(__('filament-authentication::filament-authentication.field.guard_name')))
                                     ->default(config('auth.defaults.guard')),
                                 // BelongsToManyMultiSelect::make('permissions')
-                                //     ->label(__('filament-authentication::filament-authentication.field.permissions'))
+                                //     ->label(strval(__('filament-authentication::filament-authentication.field.permissions')))
                                 //     ->relationship('permissions', 'name')
                                 //     ->hidden()
                                 //     ->preload(config('filament-spatie-roles-permissions.preload_permissions'))
@@ -69,10 +69,10 @@ class RoleResource extends Resource
                     ->label('ID')
                     ->searchable(),
                 TextColumn::make('name')
-                    ->label(__('filament-authentication::filament-authentication.field.name'))
+                    ->label(strval(__('filament-authentication::filament-authentication.field.name')))
                     ->searchable(),
                 TextColumn::make('guard_name')
-                    ->label(__('filament-authentication::filament-authentication.field.guard_name'))
+                    ->label(strval(__('filament-authentication::filament-authentication.field.guard_name')))
                     ->searchable(),
             ])
             ->filters([

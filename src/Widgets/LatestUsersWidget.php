@@ -23,10 +23,10 @@ class LatestUsersWidget extends TableWidget
             TextColumn::make('id')
                 ->label("ID"),
             TextColumn::make('name')
-                ->label(__('filament-authentication::filament-authentication.field.user.name')),
+                ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
             TextColumn::make('created_at')
                 ->humanDate()
-                ->label(__('filament-authentication::filament-authentication.field.user.created_at'))
+                ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at')))
         ];
     }
 

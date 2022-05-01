@@ -25,12 +25,13 @@ class ImpersonatingMiddleware
             str_replace(
                 "</body>",
                 $this->getHtmlContent($request) . "</body>",
+                // @phpstan-ignore-next-line
                 $response->getContent()
             )
         );
     }
 
-    protected function getHtmlContent($request)
+    protected function getHtmlContent($request): string
     {
         return view('filament-authentication::impersonating-banner', [
             'isFilament' => Str::startsWith($request->path(), config('filament.path')),

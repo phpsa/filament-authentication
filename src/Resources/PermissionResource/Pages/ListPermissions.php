@@ -30,7 +30,7 @@ class ListPermissions extends ListRecords
             })
             ->form([
                 Select::make('role')
-                    ->label(__('filament-authentication::filament-authentication.field.role'))
+                    ->label(strval(__('filament-authentication::filament-authentication.field.role')))
                     ->options(Role::query()->pluck('name', 'id'))
                     ->required(),
             ])->deselectRecordsAfterCompletion()

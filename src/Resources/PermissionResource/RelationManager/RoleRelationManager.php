@@ -19,9 +19,9 @@ class RoleRelationManager extends BelongsToManyRelationManager
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label(__('filament-authentication::filament-authentication.field.name')),
+                    ->label(strval(__('filament-authentication::filament-authentication.field.name'))),
                 TextInput::make('guard_name')
-                    ->label(__('filament-authentication::filament-authentication.field.guard_name'))
+                    ->label(strval(__('filament-authentication::filament-authentication.field.guard_name')))
                      ->default(config('auth.defaults.guard')),
 
             ]);
@@ -32,9 +32,9 @@ class RoleRelationManager extends BelongsToManyRelationManager
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label(__('filament-authentication::filament-authentication.field.name')),
+                    ->label(strval(__('filament-authentication::filament-authentication.field.name'))),
                 TextColumn::make('guard_name')
-                    ->label(__('filament-authentication::filament-authentication.field.guard_name')),
+                    ->label(strval(__('filament-authentication::filament-authentication.field.guard_name'))),
 
             ])
             ->filters([

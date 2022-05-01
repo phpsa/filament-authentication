@@ -4,6 +4,7 @@ namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages;
 
 use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\EditRecord;
+use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Contracts\Permission;
 
 class EditPermission extends EditRecord
