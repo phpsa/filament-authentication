@@ -6,7 +6,7 @@ use App\Models\User;
 use Filament\Widgets\TableWidget;
 use Illuminate\Support\Facades\Config;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class LatestUsersWidget extends TableWidget
 {
