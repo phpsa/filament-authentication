@@ -4,7 +4,7 @@
 
         <div class="flex flex-wrap items-center gap-4 justify-end">
             <x-filament::button type="submit">
-            {{ __('filament::resources/pages/edit-record.form.actions.save.label')) }}
+            {{ __('filament::resources/pages/edit-record.form.actions.save.label') }}
             </x-filament::button>
 
 
