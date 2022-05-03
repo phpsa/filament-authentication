@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/phpsa/filament-authentication/compare/v1.1.0...v1.1.1) (2022-05-03)
+
+
+### Bug Fixes
+
+* code quality updates ([ce9c8d1](https://github.com/phpsa/filament-authentication/commit/ce9c8d113ab1c3769d63b59b544813bb107c2f1c))
+* user Widget laravel 8 compatability ([f9dd25f](https://github.com/phpsa/filament-authentication/commit/f9dd25f5eff7d110367cf61c666752b49ba60c20))
+
 # [1.1.0](https://github.com/phpsa/filament-authentication/compare/v1.0.1...v1.1.0) (2022-04-23)
 
 
