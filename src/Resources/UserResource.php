@@ -143,11 +143,6 @@ class UserResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->with('roles');
-    }
-
     public static function getUserTimezone(): string
     {
         return config('request.user.timezone', config('filament-authentication.user_timezone', config('app.timezone', 'UTC')));
