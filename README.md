@@ -81,6 +81,8 @@ create your policies and register then in the AuthServiceProvider
     ],
 ```
 
+Note that it is also attached to the UserPolicy::viewAny policy value if the policy exists
+
 --It is planned to update the enabled to accept a callback function to allow for roles etc in the next version--
 
 ## Profile
