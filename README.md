@@ -71,7 +71,17 @@ create your policies and register then in the AuthServiceProvider
 ```
 
 ## Widgets
-adding  ` \Phpsa\FilamentAuthentication\Widgets\LatestUsersWidget::class` to the widgets in the filament.php config file will attach the LatestUsersWidget to your dashboard
+  `LatestUsersWidget` is by default published to your dashboard, this can be configured / disabled by editing the config in the filament-authentication config file:
+  ```php
+   'Widgets' => [
+        'LatesetUsers' => [
+            'enabled' => true,
+            'limit' => 5,
+        ],
+    ],
+```
+
+--It is planned to update the enabled to accept a callback function to allow for roles etc in the next version--
 
 ## Profile
 Profile view for currently authed user
