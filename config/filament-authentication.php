@@ -10,7 +10,7 @@ return [
         'Profile' => \Phpsa\FilamentAuthentication\Pages\Profile::class
     ],
     'Widgets' => [
-        'LatesetUsers' => [
+        'LatestUsers' => [
             'enabled' => true,
             'limit' => 5,
         ],
