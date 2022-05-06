@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/phpsa/filament-authentication/compare/v1.1.1...v1.1.2) (2022-05-06)
+
+
+### Bug Fixes
+
+* spelling issue in config file ([4160da9](https://github.com/phpsa/filament-authentication/commit/4160da954fa0163653560abd3824904a8a426d06))
+
 ## [1.1.1](https://github.com/phpsa/filament-authentication/compare/v1.1.0...v1.1.1) (2022-05-03)
 
 
