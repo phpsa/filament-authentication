@@ -14,8 +14,8 @@ class ImpersonateLink
 {
     public static function make(): Action
     {
-        return config('filament.layout.tables.actions.type')::make('impersonate')
-        ->label(__('filament-authentication::filament-authentication.button.impersonate'))
+        return Filament::makeTableAction('impersonate')
+            ->label(__('filament-authentication::filament-authentication.button.impersonate'))
             ->icon('heroicon-o-identification')
             ->action(fn($record) => static::impersonate($record))
             ->hidden(fn($record) => ! static::allowed(Filament::auth()->user(), $record));
