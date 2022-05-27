@@ -1,3 +1,20 @@
+# [2.0.0](https://github.com/phpsa/filament-authentication/compare/v1.1.2...v2.0.0) (2022-05-27)
+
+
+### Bug Fixes
+
+* use Filament::makeTableAction for table action ([864610a](https://github.com/phpsa/filament-authentication/commit/864610acaf9d05498d4c430c51deb50027bc1fc1))
+
+
+### Features
+
+* Timezone display set to use Filament Core system ([f5d5507](https://github.com/phpsa/filament-authentication/commit/f5d550710ff63b018c660a6b5be3262de469318b))
+
+
+### BREAKING CHANGES
+
+* Visual display of dates will need to be updated
+
 ## [1.1.2](https://github.com/phpsa/filament-authentication/compare/v1.1.1...v1.1.2) (2022-05-06)
 
 
