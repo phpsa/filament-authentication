@@ -3,6 +3,7 @@
 namespace Phpsa\FilamentAuthentication\Resources;
 
 use App\Models\User;
+use Filament\Facades\Filament;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
@@ -15,6 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\BelongsToManyMultiSelect;
+use Filament\Tables\Actions\Action;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
@@ -110,7 +112,7 @@ class UserResource extends Resource
                 TagsColumn::make('roles.name')
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
                 TextColumn::make('created_at')
-                    ->dateTime("Y-m-d H:i:s", static::getUserTimezone())
+                    ->dateTime("Y-m-d H:i:s")
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at')))
             ])
             ->filters([
@@ -141,10 +143,5 @@ class UserResource extends Resource
             'edit'   => EditUser::route('/{record}/edit'),
             'view'   => ViewUser::route('/{record}')
         ];
-    }
-
-    public static function getUserTimezone(): string
-    {
-        return config('request.user.timezone', config('filament-authentication.user_timezone', config('app.timezone', 'UTC')));
     }
 }

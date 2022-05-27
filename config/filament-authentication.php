@@ -15,7 +15,6 @@ return [
             'limit' => 5,
         ],
     ],
-    'user_timezone' => 'Pacific/Auckland',
     'preload_roles' => true,
     'impersonate' => [
         'enabled' => true,

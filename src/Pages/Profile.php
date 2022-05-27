@@ -41,8 +41,8 @@ class Profile extends Page
 
     protected function getFormModel(): Model
     {
+        /** @var \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable $user */
         $user = Filament::auth()->user();
-        // @phpstan-ignore-next-line
         return $user;
     }
 
