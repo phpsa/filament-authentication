@@ -2,8 +2,10 @@
 
 namespace  Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\EditRecord;
+use Phpsa\FilamentAuthentication\Events\UserUpdated;
 
 class EditUser extends EditRecord
 {
@@ -18,5 +20,10 @@ class EditUser extends EditRecord
             unset($data['password']);
         }
         return $data;
+    }
+
+    protected function afterSave(): void
+    {
+        Event::dispatch(new UserUpdated($this->record));
     }
 }
