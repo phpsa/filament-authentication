@@ -1,3 +1,15 @@
+# [2.1.0-beta.1](https://github.com/phpsa/filament-authentication/compare/v2.0.0...v2.1.0-beta.1) (2022-05-30)
+
+
+### Bug Fixes
+
+* mount not static ([3b9e4cc](https://github.com/phpsa/filament-authentication/commit/3b9e4cc0fe9ca259135b5eee15ebfdccbe05d22e))
+
+
+### Features
+
+* added event triggers for create and update ([59dd8ef](https://github.com/phpsa/filament-authentication/commit/59dd8ef6f62591b2e6a8f89e425e5f54e340df71))
+
 # [2.0.0](https://github.com/phpsa/filament-authentication/compare/v1.1.2...v2.0.0) (2022-05-27)
 
 
