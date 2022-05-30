@@ -65,10 +65,15 @@ create your policies and register then in the AuthServiceProvider
 ```php
  protected $policies = [
         Role::class       => RolePolicy::class,
-        Permission::class => PermissionPolicy::class
+        Permission::class => PermissionPolicy::class,
+        CustomPage::class => CustomPagePolicy::class,
+        SettingsPage::class => SettingsPagePolicy::class
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 ```
+
+We have a Custom Page Trait: `Phpsa\FilamentAuthentication\Traits\PagePolicyTrait` and a Spatie Settings Page Trait `Phpsa\FilamentAuthentication\Traits\SettingsPage\PolicyTrait` that you can add to your pages / settings pages.
+By defining a model and mapping it with a `viewAny($user)` method you can define per policies whether or not to show the page in navigation.
 
 ## Widgets
   `LatestUsersWidget` is by default published to your dashboard, this can be configured / disabled by editing the config in the filament-authentication config file:
@@ -102,6 +107,13 @@ class Profile extends PagesProfile
 {}
 ```
 or the view: `resources/views/vendor/filament-authentication/filament/pages/profile.blade.php` (you can publish existing one)
+
+
+## Events
+
+`Phpsa\FilamentAuthentication\Events\UserCreated`  is triggered when a user is created via the Resource
+
+`Phpsa\FilamentAuthentication\Events\UserUpdated` is triggered when a user is updated via the Resource
 
 ## Intergration with other packages:
 ** Comming soon **
