@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Gate;
 
 trait PagePolicyTrait
 {
-    public static function mount(): void
+    public function mount(): void
     {
         abort_unless(static::canView(), 403);
     }
