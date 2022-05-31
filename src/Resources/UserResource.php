@@ -29,6 +29,8 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
+    protected static ?string $recordTitleAttribute = 'name';
+
     protected static function getNavigationGroup(): ?string
     {
         return strval(__('filament-authentication::filament-authentication.section.group'));
