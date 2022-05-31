@@ -44,8 +44,7 @@ return [
         | Filters
         |--------------------------------------------------------------------------
     */
-    'filter.verified'               => 'Only Verified',
-    'filter.unverified'             => 'Only Un-Verified',
+    'filter.verified'               => 'Email Verified',
 
     'button.impersonate'            => "Impersonate User",
     'text.impersonating'            => 'Impersonating User: ',

@@ -8,15 +8,13 @@ use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
-use Filament\Tables\Filters\Filter;
 use Illuminate\Support\Facades\Hash;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\BelongsToManyMultiSelect;
-use Filament\Tables\Actions\Action;
+use Filament\Tables\Filters\TernaryFilter;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
@@ -118,12 +116,10 @@ class UserResource extends Resource
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at')))
             ])
             ->filters([
-                Filter::make('verified')
+                TernaryFilter::make('email_verified_at')
                  ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
-                    ->query(fn (Builder $query): Builder => $query->whereNotNull('email_verified_at')),
-                Filter::make('unverified')
-                ->label(strval(__('filament-authentication::filament-authentication.filter.unverified')))
-                    ->query(fn (Builder $query): Builder => $query->whereNull('email_verified_at')),
+                    ->nullable(),
+
             ])
             ->prependActions([
                 ImpersonateLink::make()
