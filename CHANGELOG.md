@@ -1,3 +1,11 @@
+# [2.1.0-beta.2](https://github.com/phpsa/filament-authentication/compare/v2.1.0-beta.1...v2.1.0-beta.2) (2022-05-31)
+
+
+### Bug Fixes
+
+* use Terniary Filter ([9d9a07a](https://github.com/phpsa/filament-authentication/commit/9d9a07ad9672739c96b3128bc80649614536e824))
+* use user name by default on edit ([b3d4a90](https://github.com/phpsa/filament-authentication/commit/b3d4a90356622901ff71bf3c95381fe9df07fc8b))
+
 # [2.1.0-beta.1](https://github.com/phpsa/filament-authentication/compare/v2.0.0...v2.1.0-beta.1) (2022-05-30)
 
 
