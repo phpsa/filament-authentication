@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/phpsa/filament-authentication/compare/v2.1.0...v2.1.1) (2022-06-06)
+
+
+### Bug Fixes
+
+* added ability to set sort order of the LatestUsers widget ([7198cff](https://github.com/phpsa/filament-authentication/commit/7198cfffbc37e788f46cde363709cf2d91332bc1))
+
 # [2.1.0](https://github.com/phpsa/filament-authentication/compare/v2.0.0...v2.1.0) (2022-06-02)
 
 
