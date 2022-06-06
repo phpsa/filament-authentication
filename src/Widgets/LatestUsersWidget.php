@@ -45,4 +45,9 @@ class LatestUsersWidget extends TableWidget
     {
         return Config::get('filament-authentication.resources.UserResource');
     }
+
+    public static function getSort(): int
+    {
+        return Config::get('filament-authentication.Widgets.LatestUsers.sort', 0);
+    }
 }
