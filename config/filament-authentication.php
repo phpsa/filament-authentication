@@ -1,25 +1,25 @@
 <?php
 
 return [
-    'resources' => [
-        'UserResource' => \Phpsa\FilamentAuthentication\Resources\UserResource::class,
-        'RoleResource' => \Phpsa\FilamentAuthentication\Resources\RoleResource::class,
-       'PermissionResource' => \Phpsa\FilamentAuthentication\Resources\PermissionResource::class,
+    'resources'     => [
+        'UserResource'       => \Phpsa\FilamentAuthentication\Resources\UserResource::class,
+        'RoleResource'       => \Phpsa\FilamentAuthentication\Resources\RoleResource::class,
+        'PermissionResource' => \Phpsa\FilamentAuthentication\Resources\PermissionResource::class,
     ],
-    'pages' => [
+    'pages'         => [
         'Profile' => \Phpsa\FilamentAuthentication\Pages\Profile::class
     ],
-    'Widgets' => [
+    'Widgets'       => [
         'LatestUsers' => [
             'enabled' => true,
-            'limit' => 5,
+            'limit'   => 5,
+            'sort'    => 0
         ],
     ],
     'preload_roles' => true,
-    'impersonate' => [
-        'enabled' => true,
-        'guard' => 'web',
+    'impersonate'   => [
+        'enabled'  => true,
+        'guard'    => 'web',
         'redirect' => '/'
-        ]
-
+    ]
 ];

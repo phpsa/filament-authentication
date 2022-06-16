@@ -1,3 +1,24 @@
+## [2.1.1](https://github.com/phpsa/filament-authentication/compare/v2.1.0...v2.1.1) (2022-06-06)
+
+
+### Bug Fixes
+
+* added ability to set sort order of the LatestUsers widget ([7198cff](https://github.com/phpsa/filament-authentication/commit/7198cfffbc37e788f46cde363709cf2d91332bc1))
+
+# [2.1.0](https://github.com/phpsa/filament-authentication/compare/v2.0.0...v2.1.0) (2022-06-02)
+
+
+### Bug Fixes
+
+* mount not static ([3b9e4cc](https://github.com/phpsa/filament-authentication/commit/3b9e4cc0fe9ca259135b5eee15ebfdccbe05d22e))
+* use Terniary Filter ([9d9a07a](https://github.com/phpsa/filament-authentication/commit/9d9a07ad9672739c96b3128bc80649614536e824))
+* use user name by default on edit ([b3d4a90](https://github.com/phpsa/filament-authentication/commit/b3d4a90356622901ff71bf3c95381fe9df07fc8b))
+
+
+### Features
+
+* added event triggers for create and update ([59dd8ef](https://github.com/phpsa/filament-authentication/commit/59dd8ef6f62591b2e6a8f89e425e5f54e340df71))
+
 # [2.1.0-beta.2](https://github.com/phpsa/filament-authentication/compare/v2.1.0-beta.1...v2.1.0-beta.2) (2022-05-31)
 
 
