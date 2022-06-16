@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/phpsa/filament-authentication/compare/v2.1.1...v2.1.2) (2022-06-16)
+
+
+### Bug Fixes
+
+* tableActions removed ([91b1526](https://github.com/phpsa/filament-authentication/commit/91b152674ef6f7a0b1d658d5efc40bd08546cd61))
+
 ## [2.1.1](https://github.com/phpsa/filament-authentication/compare/v2.1.0...v2.1.1) (2022-06-06)
 
 
