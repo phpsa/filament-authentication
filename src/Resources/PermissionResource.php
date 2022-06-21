@@ -27,6 +27,11 @@ class PermissionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
 
+    public function __construct()
+    {
+        static::$model = config('filament-authentication.models.Permission');
+    }
+
     public static function getLabel(): string
     {
         return strval(__('filament-authentication::filament-authentication.section.permission'));

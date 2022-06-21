@@ -1,3 +1,9 @@
+## [2.2.0] (to be released)
+
+### Features
+
+* [2.2.0] introduce ability to override User, Role and Permission Model (instead of just RoleResource and PermissionResource)
+
 ## [2.1.2](https://github.com/phpsa/filament-authentication/compare/v2.1.1...v2.1.2) (2022-06-16)
 
 
