@@ -2,7 +2,6 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages;
 
-use Spatie\Permission\Models\Role;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Config;
 use Filament\Tables\Actions\BulkAction;
@@ -19,6 +18,8 @@ class ListPermissions extends ListRecords
 
     protected function getTableBulkActions(): array
     {
+        $roleClass = config('filament-authentication.models.Role');
+
         return [
             BulkAction::make('Attach Role')
             ->action(function (Collection $records, array $data): void {
@@ -31,7 +32,7 @@ class ListPermissions extends ListRecords
             ->form([
                 Select::make('role')
                     ->label(strval(__('filament-authentication::filament-authentication.field.role')))
-                    ->options(Role::query()->pluck('name', 'id'))
+                    ->options((new $roleClass)::query()->pluck('name', 'id'))
                     ->required(),
             ])->deselectRecordsAfterCompletion()
         ];

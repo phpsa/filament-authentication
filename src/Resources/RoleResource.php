@@ -23,6 +23,11 @@ class RoleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
+    public function __construct()
+    {
+        static::$model = config('filament-authentication.models.Role');
+    }
+
     public static function getLabel(): string
     {
         return strval(__('filament-authentication::filament-authentication.section.role'));

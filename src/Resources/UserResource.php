@@ -29,6 +29,11 @@ class UserResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public function __construct()
+    {
+        static::$model = config('filament-authentication.models.User');
+    }
+
     protected static function getNavigationGroup(): ?string
     {
         return strval(__('filament-authentication::filament-authentication.section.group'));
