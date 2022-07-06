@@ -39,6 +39,11 @@ class UserResource extends Resource
         return strval(__('filament-authentication::filament-authentication.section.group'));
     }
 
+    protected static function getNavigationBadge(): ?string
+    {
+        return (string) (static::$model)::count();
+    }
+
     public static function getLabel(): string
     {
         return strval(__('filament-authentication::filament-authentication.section.user'));
