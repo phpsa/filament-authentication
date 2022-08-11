@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/phpsa/filament-authentication/compare/v2.1.2...v2.2.0) (2022-08-11)
+
+
+### Features
+
+* Vietnamese translations ([#19](https://github.com/phpsa/filament-authentication/issues/19)) ([616bb75](https://github.com/phpsa/filament-authentication/commit/616bb754e6bf8ba99df6b04df941e2ee26294d5b))
+
 ## [2.2.0] (to be released)
 
 ### Features
