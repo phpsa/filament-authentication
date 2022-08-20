@@ -28,8 +28,8 @@ php artisan vendor:publish --tag=filament-authentication-config
 
 and optionally views / translations
 ```bash
-artisan vendor:publish --tag=filament-authentication-views
-artisan vendor:publish --tag=filament-authentication-translations
+php artisan vendor:publish --tag=filament-authentication-views
+php artisan vendor:publish --tag=filament-authentication-translations
 ```
 
 ## Additional Resources:
