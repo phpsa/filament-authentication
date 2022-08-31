@@ -7,6 +7,7 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
+use Spatie\Permission\PermissionRegistrar;
 
 class RoleRelationManager extends BelongsToManyRelationManager
 {
@@ -41,5 +42,15 @@ class RoleRelationManager extends BelongsToManyRelationManager
             ->filters([
                 //
             ]);
+    }
+
+    public function afterAttach(): void
+    {
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
+    }
+
+    public function afterDetach(): void
+    {
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
     }
 }

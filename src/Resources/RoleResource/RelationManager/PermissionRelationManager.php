@@ -7,11 +7,11 @@ use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
+use Spatie\Permission\PermissionRegistrar;
 
 class PermissionRelationManager extends BelongsToManyRelationManager
 {
     protected static string $relationship = 'permissions';
-
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Form $form): Form
@@ -22,7 +22,7 @@ class PermissionRelationManager extends BelongsToManyRelationManager
                     ->label(strval(__('filament-authentication::filament-authentication.field.name'))),
                 TextInput::make('guard_name')
                     ->label(strval(__('filament-authentication::filament-authentication.field.guard_name')))
-                     ->default(config('auth.defaults.guard')),
+                    ->default(config('auth.defaults.guard')),
 
             ]);
     }
@@ -41,5 +41,15 @@ class PermissionRelationManager extends BelongsToManyRelationManager
             ->filters([
                 //
             ]);
+    }
+
+    public function afterAttach(): void
+    {
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
+    }
+
+    public function afterDetach(): void
+    {
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
     }
 }
