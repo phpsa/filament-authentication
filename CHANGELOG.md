@@ -1,3 +1,11 @@
+## [2.2.1](https://github.com/phpsa/filament-authentication/compare/v2.2.0...v2.2.1) (2022-09-11)
+
+
+### Bug Fixes
+
+* Clear permissions cache on attach/detach ([#22](https://github.com/phpsa/filament-authentication/issues/22)) ([50952ca](https://github.com/phpsa/filament-authentication/commit/50952ca04144e85f175f167211e29f48dc7df454))
+* Make Role and Permission Name and Guard Name required for form ([#23](https://github.com/phpsa/filament-authentication/issues/23)) ([0f948e9](https://github.com/phpsa/filament-authentication/commit/0f948e93cd7b939221a6b0fd1e76cdd021129207))
+
 # [2.2.0](https://github.com/phpsa/filament-authentication/compare/v2.1.2...v2.2.0) (2022-08-11)
 
 
