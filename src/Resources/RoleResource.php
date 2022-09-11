@@ -52,9 +52,11 @@ class RoleResource extends Resource
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('name')
-                                    ->label(strval(__('filament-authentication::filament-authentication.field.name'))),
+                                    ->label(strval(__('filament-authentication::filament-authentication.field.name')))
+                                    ->required(),
                                 TextInput::make('guard_name')
                                     ->label(strval(__('filament-authentication::filament-authentication.field.guard_name')))
+                                    ->required()
                                     ->default(config('auth.defaults.guard')),
                                 // BelongsToManyMultiSelect::make('permissions')
                                 //     ->label(strval(__('filament-authentication::filament-authentication.field.permissions')))

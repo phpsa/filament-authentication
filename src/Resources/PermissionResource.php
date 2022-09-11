@@ -55,10 +55,12 @@ class PermissionResource extends Resource
                     ->schema([
                         Grid::make(2)->schema([
                             TextInput::make('name')
+                                ->required()
                                 ->label(strval(__('filament-authentication::filament-authentication.field.name'))),
                             TextInput::make('guard_name')
+                                ->required()
                                 ->label(strval(__('filament-authentication::filament-authentication.field.guard_name')))
-                                 ->default(config('auth.defaults.guard')),
+                                ->default(config('auth.defaults.guard')),
                             // BelongsToManyMultiSelect::make('roles')
                             //     ->label(strval(__('filament-authentication::filament-authentication.field.roles')))
                             //     ->relationship('roles', 'name')
