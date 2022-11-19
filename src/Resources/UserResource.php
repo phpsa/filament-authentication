@@ -117,7 +117,7 @@ class UserResource extends Resource
             ])
             ->filters([
                 TernaryFilter::make('email_verified_at')
-                 ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
+                    ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
                     ->nullable(),
 
             ])
