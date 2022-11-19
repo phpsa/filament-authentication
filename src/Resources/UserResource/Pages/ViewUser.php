@@ -3,6 +3,7 @@
 namespace Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
 use Filament\Facades\Filament;
+use Filament\Pages\Actions\Action;
 use Illuminate\Support\Facades\Config;
 use Filament\Pages\Actions\ButtonAction;
 use Filament\Resources\Pages\ViewRecord;
@@ -20,7 +21,6 @@ class ViewUser extends ViewRecord
 
     protected function getActions(): array
     {
-
         $user = Filament::auth()->user();
         if ($user === null) {
             throw new UnauthorizedException();
@@ -28,10 +28,11 @@ class ViewUser extends ViewRecord
 
         if (ImpersonateLink::allowed($user, $this->record)) {
             return array_merge([
-                ButtonAction::make('impersonate')
-                ->action(function () {
-                    ImpersonateLink::impersonate($this->record);
-                }),
+                Action::make('impersonate')
+                    ->button()
+                    ->action(function () {
+                        ImpersonateLink::impersonate($this->record);
+                    }),
             ], parent::getActions());
         }
         return parent::getActions();
