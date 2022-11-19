@@ -74,11 +74,12 @@ class UserResource extends Resource
                             ->password()
                             ->dehydrated(false)
                             ->maxLength(255)
-                             ->label(strval(__('filament-authentication::filament-authentication.field.user.confirm_password'))),
-                        BelongsToManyMultiSelect::make('roles')
+                            ->label(strval(__('filament-authentication::filament-authentication.field.user.confirm_password'))),
+                        Select::make('roles')
+                            ->multiple()
                             ->relationship('roles', 'name')
-                             ->preload(config('filament-authentication.preload_roles'))
-                             ->label(strval(__('filament-authentication::filament-authentication.field.user.roles')))
+                            ->preload(config('filament-authentication.preload_roles'))
+                            ->label(strval(__('filament-authentication::filament-authentication.field.user.roles')))
                     ])->columns(2),
             ]);
     }
