@@ -14,6 +14,7 @@ use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\BelongsToManyMultiSelect;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\TernaryFilter;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
@@ -119,7 +120,6 @@ class UserResource extends Resource
                 TernaryFilter::make('email_verified_at')
                     ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
                     ->nullable(),
-
             ])
             ->prependActions([
                 ImpersonateLink::make()
