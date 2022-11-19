@@ -86,17 +86,19 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-
         return $table
             ->columns([
                 TextColumn::make('id')
+                    ->sortable()
                     ->label(strval(__('filament-authentication::filament-authentication.field.id'))),
                 TextColumn::make('name')
                     ->searchable()
-                    ->sortable() ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
+                    ->sortable()
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
                 TextColumn::make('email')
                     ->searchable()
-                    ->sortable() ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
+                    ->sortable()
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
                 IconColumn::make('email_verified_at')
                     ->options([
                         'heroicon-o-check-circle',
