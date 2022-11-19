@@ -62,7 +62,7 @@ class UserResource extends Resource
                             ->required()
                             ->email()
                             ->unique(table: User::class, ignorable: fn (?User $record): ?User => $record)
-                             ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
+                            ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
                         TextInput::make('password')
                             ->same('passwordConfirmation')
                             ->password()
