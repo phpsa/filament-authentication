@@ -108,15 +108,7 @@ class UserResource extends Resource
                         'success',
                         'danger' => fn ($state): bool => $state === null
                     ])
-                     ->label(strval(__('filament-authentication::filament-authentication.field.user.verified_at'))),
-                // IconColumn::make('roles')
-                //     ->tooltip(
-                //         fn (User $record): string => $record->getRoleNames()->implode(",\n")
-                //     )->options(
-                //         [
-                //             'heroicon-o-shield-check'
-                //         ]
-                //     )->colors(['success']),
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.verified_at'))),
                 TagsColumn::make('roles.name')
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
                 TextColumn::make('created_at')
