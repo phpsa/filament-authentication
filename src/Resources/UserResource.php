@@ -67,9 +67,9 @@ class UserResource extends Resource
                             ->same('passwordConfirmation')
                             ->password()
                             ->maxLength(255)
-                            ->required(fn($component, $get, $livewire, $model, $record, $set, $state) =>  $record === null)
-                            ->dehydrateStateUsing(fn ($state) => ! empty($state) ? Hash::make($state) : "")
-                             ->label(strval(__('filament-authentication::filament-authentication.field.user.password'))),
+                            ->required(fn ($component, $get, $livewire, $model, $record, $set, $state) =>  $record === null)
+                            ->dehydrateStateUsing(fn ($state) => !empty($state) ? Hash::make($state) : "")
+                            ->label(strval(__('filament-authentication::filament-authentication.field.user.password'))),
                         TextInput::make('passwordConfirmation')
                             ->password()
                             ->dehydrated(false)
