@@ -2,18 +2,19 @@
 
 namespace Phpsa\FilamentAuthentication\Pages;
 
-use Filament\Pages\Page;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Grid;
-use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Validation\Rules\Password;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Pages\Page;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 /**
  * @TODO - fix translations
+ *
  * @property \Filament\Forms\ComponentContainer $form
  */
 class Profile extends Page
@@ -43,6 +44,7 @@ class Profile extends Page
     {
         /** @var \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable $user */
         $user = Filament::auth()->user();
+
         return $user;
     }
 
@@ -50,20 +52,19 @@ class Profile extends Page
     {
         $this->form->fill([
             // @phpstan-ignore-next-line
-            'name'  =>  $this->getFormModel()->name,
+            'name' => $this->getFormModel()->name,
             // @phpstan-ignore-next-line
-            'email' =>  $this->getFormModel()->email,
+            'email' => $this->getFormModel()->email,
         ]);
     }
 
     public function submit(): void
     {
-
         $data = $this->form->getState();
 
         $state = array_filter([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
+            'name' => $data['name'],
+            'email' => $data['email'],
             'password' => $data['new_password'] ? Hash::make($data['new_password']) : null,
         ]);
 
@@ -71,7 +72,7 @@ class Profile extends Page
 
         if ($data['new_password']) {
             // @phpstan-ignore-next-line
-            Filament::auth()->login($this->getFormModel(), (bool)$this->getFormModel()->getRememberToken());
+            Filament::auth()->login($this->getFormModel(), (bool) $this->getFormModel()->getRememberToken());
         }
 
         $this->notify('success', strval(__('filament::resources/pages/edit-record.messages.saved')));

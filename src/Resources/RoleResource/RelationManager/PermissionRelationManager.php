@@ -12,6 +12,7 @@ use Spatie\Permission\PermissionRegistrar;
 class PermissionRelationManager extends BelongsToManyRelationManager
 {
     protected static string $relationship = 'permissions';
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Form $form): Form

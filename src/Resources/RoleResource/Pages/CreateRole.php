@@ -2,9 +2,9 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\RoleResource\Pages;
 
-use Spatie\Permission\Contracts\Role;
-use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Config;
+use Spatie\Permission\Contracts\Role;
 use Spatie\Permission\PermissionRegistrar;
 
 class CreateRole extends CreateRecord

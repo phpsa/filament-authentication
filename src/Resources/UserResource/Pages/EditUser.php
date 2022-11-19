@@ -2,9 +2,9 @@
 
 namespace  Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
 use Phpsa\FilamentAuthentication\Events\UserUpdated;
 
 class EditUser extends EditRecord
@@ -19,6 +19,7 @@ class EditUser extends EditRecord
         if (empty($data['password'])) {
             unset($data['password']);
         }
+
         return $data;
     }
 

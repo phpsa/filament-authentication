@@ -2,8 +2,8 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
-use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Support\Facades\Config;
 
 class ListUsers extends ListRecords
 {

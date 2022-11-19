@@ -3,10 +3,10 @@
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages;
 
 use Filament\Forms\Components\Select;
-use Illuminate\Support\Facades\Config;
-use Filament\Tables\Actions\BulkAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Config;
 
 class ListPermissions extends ListRecords
 {
@@ -14,7 +14,6 @@ class ListPermissions extends ListRecords
     {
         return Config::get('filament-authentication.resources.PermissionResource');
     }
-
 
     protected function getTableBulkActions(): array
     {
@@ -34,7 +33,7 @@ class ListPermissions extends ListRecords
                     ->label(strval(__('filament-authentication::filament-authentication.field.role')))
                     ->options((new $roleClass)::query()->pluck('name', 'id'))
                     ->required(),
-            ])->deselectRecordsAfterCompletion()
+            ])->deselectRecordsAfterCompletion(),
         ];
     }
 }

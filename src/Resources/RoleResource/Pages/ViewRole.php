@@ -2,8 +2,8 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\RoleResource\Pages;
 
-use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Facades\Config;
 
 class ViewRole extends ViewRecord
 {

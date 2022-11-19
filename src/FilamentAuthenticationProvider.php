@@ -2,27 +2,22 @@
 
 namespace Phpsa\FilamentAuthentication;
 
-use Livewire\Livewire;
 use Filament\Facades\Filament;
-use Filament\PluginServiceProvider;
 use Filament\Navigation\UserMenuItem;
+use Filament\PluginServiceProvider;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
-use Spatie\LaravelPackageTools\Package;
-use Phpsa\FilamentAuthentication\Pages\Profile;
-use Lab404\Impersonate\Services\ImpersonateManager;
 use Phpsa\FilamentAuthentication\Http\Middleware\ImpersonatingMiddleware;
 use Phpsa\FilamentAuthentication\Widgets\LatestUsersWidget;
+use Spatie\LaravelPackageTools\Package;
 
 class FilamentAuthenticationProvider extends PluginServiceProvider
 {
     public static string $name = 'filament-authentication';
 
     protected array $widgets = [
-        LatestUsersWidget::class
+        LatestUsersWidget::class,
     ];
-
 
     protected function getResources(): array
     {
@@ -44,7 +39,6 @@ class FilamentAuthenticationProvider extends PluginServiceProvider
     {
         return config('filament-authentication.pages');
     }
-
 
     protected function registerMacros(): void
     {

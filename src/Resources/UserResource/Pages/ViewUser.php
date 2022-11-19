@@ -4,13 +4,10 @@ namespace Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
 use Filament\Facades\Filament;
 use Filament\Pages\Actions\Action;
-use Illuminate\Support\Facades\Config;
-use Filament\Pages\Actions\ButtonAction;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\UnauthorizedException;
-use Lab404\Impersonate\Impersonate;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
-use Phpsa\FilamentAuthentication\Resources\UserResource\RelationManager\RoleRelationManager;
 
 class ViewUser extends ViewRecord
 {
@@ -35,6 +32,7 @@ class ViewUser extends ViewRecord
                     }),
             ], parent::getActions());
         }
+
         return parent::getActions();
     }
 }
