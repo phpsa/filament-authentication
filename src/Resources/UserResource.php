@@ -2,7 +2,6 @@
 
 namespace Phpsa\FilamentAuthentication\Resources;
 
-use App\Models\User;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -22,8 +21,6 @@ use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
 
 class UserResource extends Resource
 {
-    protected static ?string $model = User::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static ?string $recordTitleAttribute = 'name';
@@ -60,7 +57,7 @@ class UserResource extends Resource
                         TextInput::make('email')
                             ->required()
                             ->email()
-                            ->unique(table: User::class, ignorable: fn (?User $record): ?User => $record)
+                            ->unique(table: static::$model, ignorable: fn ($record) => $record)
                             ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
                         TextInput::make('password')
                             ->same('passwordConfirmation')

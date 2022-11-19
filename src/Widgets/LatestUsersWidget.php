@@ -2,7 +2,6 @@
 
 namespace Phpsa\FilamentAuthentication\Widgets;
 
-use App\Models\User;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Widgets\TableWidget;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,7 +11,9 @@ class LatestUsersWidget extends TableWidget
 {
     protected function getTableQuery(): Builder
     {
-        return User::query()
+        $userClass = config('filament-authentication.models.User');
+
+        return $userClass::query()
         ->latest()
         ->limit(Config::get('filament-authentication.Widgets.LatestUsers.limit'));
     }
