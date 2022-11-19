@@ -15,6 +15,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager\UserRelationManager;
 use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource
