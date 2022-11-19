@@ -90,7 +90,8 @@ class RoleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            PermissionRelationManager::class
+            PermissionRelationManager::class,
+            UserRelationManager::class
         ];
     }
 
