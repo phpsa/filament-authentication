@@ -2,10 +2,10 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages;
 
-use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\CreateRecord;
-use Spatie\Permission\PermissionRegistrar;
+use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Contracts\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class CreatePermission extends CreateRecord
 {

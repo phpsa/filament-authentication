@@ -2,11 +2,6 @@
 
 namespace Phpsa\FilamentAuthentication\Resources;
 
-use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\CreateRole;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\EditRole;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ListRoles;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ViewRole;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager\PermissionRelationManager;
 use Filament\Forms\Components\BelongsToManyMultiSelect;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
@@ -15,6 +10,12 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\CreateRole;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\EditRole;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ListRoles;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ViewRole;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager\PermissionRelationManager;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager\UserRelationManager;
 use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource
@@ -63,8 +64,8 @@ class RoleResource extends Resource
                                 //     ->relationship('permissions', 'name')
                                 //     ->hidden()
                                 //     ->preload(config('filament-spatie-roles-permissions.preload_permissions'))
-                            ])
-                    ])
+                            ]),
+                    ]),
             ]);
     }
 
@@ -90,17 +91,18 @@ class RoleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            PermissionRelationManager::class
+            PermissionRelationManager::class,
+            UserRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index'  => ListRoles::route('/'),
+            'index' => ListRoles::route('/'),
             'create' => CreateRole::route('/create'),
-            'edit'   => EditRole::route('/{record}/edit'),
-            'view'   => ViewRole::route('/{record}')
+            'edit' => EditRole::route('/{record}/edit'),
+            'view' => ViewRole::route('/{record}'),
         ];
     }
 }

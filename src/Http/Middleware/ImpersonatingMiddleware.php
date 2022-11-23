@@ -2,10 +2,10 @@
 
 namespace Phpsa\FilamentAuthentication\Http\Middleware;
 
-use Illuminate\Support\Str;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 use Lab404\Impersonate\Services\ImpersonateManager;
 
 class ImpersonatingMiddleware
@@ -23,8 +23,8 @@ class ImpersonatingMiddleware
         ? $this->setJsonContent($response) :
         $response->setContent(
             str_replace(
-                "</body>",
-                $this->getHtmlContent($request) . "</body>",
+                '</body>',
+                $this->getHtmlContent($request).'</body>',
                 // @phpstan-ignore-next-line
                 $response->getContent()
             )
@@ -49,7 +49,6 @@ class ImpersonatingMiddleware
 
         return $this->setResponseData($response, $data);
     }
-
 
     protected function getResponseData(Response $response)
     {

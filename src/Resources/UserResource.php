@@ -2,23 +2,23 @@
 
 namespace Phpsa\FilamentAuthentication\Resources;
 
-use Filament\Facades\Filament;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Resources\Resource;
+
 use Filament\Forms\Components\Card;
-use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\BelongsToManyMultiSelect;
 use Filament\Tables\Filters\TernaryFilter;
+use Illuminate\Support\Facades\Hash;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
-use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
-use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
-use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ListUsers;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\CreateUser;
+use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
+use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ListUsers;
+use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
 
 class UserResource extends Resource
 {
@@ -59,40 +59,43 @@ class UserResource extends Resource
                             ->required()
                             ->email()
                             ->unique(table: static::$model, ignorable: fn ($record) => $record)
-                             ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
+                            ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
                         TextInput::make('password')
                             ->same('passwordConfirmation')
                             ->password()
                             ->maxLength(255)
-                            ->required(fn($component, $get, $livewire, $model, $record, $set, $state) =>  $record === null)
-                            ->dehydrateStateUsing(fn ($state) => ! empty($state) ? Hash::make($state) : "")
-                             ->label(strval(__('filament-authentication::filament-authentication.field.user.password'))),
+                            ->required(fn ($component, $get, $livewire, $model, $record, $set, $state) => $record === null)
+                            ->dehydrateStateUsing(fn ($state) => ! empty($state) ? Hash::make($state) : '')
+                            ->label(strval(__('filament-authentication::filament-authentication.field.user.password'))),
                         TextInput::make('passwordConfirmation')
                             ->password()
                             ->dehydrated(false)
                             ->maxLength(255)
-                             ->label(strval(__('filament-authentication::filament-authentication.field.user.confirm_password'))),
-                        BelongsToManyMultiSelect::make('roles')
+                            ->label(strval(__('filament-authentication::filament-authentication.field.user.confirm_password'))),
+                        Select::make('roles')
+                            ->multiple()
                             ->relationship('roles', 'name')
-                             ->preload(config('filament-authentication.preload_roles'))
-                             ->label(strval(__('filament-authentication::filament-authentication.field.user.roles')))
+                            ->preload(config('filament-authentication.preload_roles'))
+                            ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
                     ])->columns(2),
             ]);
     }
 
     public static function table(Table $table): Table
     {
-
         return $table
             ->columns([
                 TextColumn::make('id')
+                    ->sortable()
                     ->label(strval(__('filament-authentication::filament-authentication.field.id'))),
                 TextColumn::make('name')
                     ->searchable()
-                    ->sortable() ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
+                    ->sortable()
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
                 TextColumn::make('email')
                     ->searchable()
-                    ->sortable() ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
+                    ->sortable()
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
                 IconColumn::make('email_verified_at')
                     ->options([
                         'heroicon-o-check-circle',
@@ -100,31 +103,22 @@ class UserResource extends Resource
                     ])
                     ->colors([
                         'success',
-                        'danger' => fn ($state): bool => $state === null
+                        'danger' => fn ($state): bool => $state === null,
                     ])
-                     ->label(strval(__('filament-authentication::filament-authentication.field.user.verified_at'))),
-                // IconColumn::make('roles')
-                //     ->tooltip(
-                //         fn (User $record): string => $record->getRoleNames()->implode(",\n")
-                //     )->options(
-                //         [
-                //             'heroicon-o-shield-check'
-                //         ]
-                //     )->colors(['success']),
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.verified_at'))),
                 TagsColumn::make('roles.name')
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
                 TextColumn::make('created_at')
-                    ->dateTime("Y-m-d H:i:s")
-                    ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at')))
+                    ->dateTime('Y-m-d H:i:s')
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at'))),
             ])
             ->filters([
                 TernaryFilter::make('email_verified_at')
-                 ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
+                    ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
                     ->nullable(),
-
             ])
             ->prependActions([
-                ImpersonateLink::make()
+                ImpersonateLink::make(),
             ]);
     }
 
@@ -138,10 +132,10 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListUsers::route('/'),
+            'index' => ListUsers::route('/'),
             'create' => CreateUser::route('/create'),
-            'edit'   => EditUser::route('/{record}/edit'),
-            'view'   => ViewUser::route('/{record}')
+            'edit' => EditUser::route('/{record}/edit'),
+            'view' => ViewUser::route('/{record}'),
         ];
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Phpsa\FilamentAuthentication\Widgets;
 
-use Filament\Widgets\TableWidget;
-use Illuminate\Support\Facades\Config;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Widgets\TableWidget;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Config;
 
 class LatestUsersWidget extends TableWidget
 {
@@ -22,12 +22,12 @@ class LatestUsersWidget extends TableWidget
     {
         return [
             TextColumn::make('id')
-                ->label("ID"),
+                ->label('ID'),
             TextColumn::make('name')
                 ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
             TextColumn::make('created_at')
                 ->humanDate()
-                ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at')))
+                ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at'))),
         ];
     }
 

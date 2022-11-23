@@ -2,24 +2,20 @@
 
 namespace Phpsa\FilamentAuthentication\Resources;
 
+use Filament\Forms\Components\BelongsToManyMultiSelect;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Form;
+use Filament\Resources\Resource;
+use Filament\Resources\Table;
+use Filament\Tables\Columns\TextColumn;
 use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\CreatePermission;
 use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\EditPermission;
 use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\ListPermissions;
 use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\ViewPermission;
 use Phpsa\FilamentAuthentication\Resources\PermissionResource\RelationManager\RoleRelationManager;
-use Filament\Forms\Components\BelongsToManyMultiSelect;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class PermissionResource extends Resource
 {
@@ -65,8 +61,8 @@ class PermissionResource extends Resource
                             //     ->label(strval(__('filament-authentication::filament-authentication.field.roles')))
                             //     ->relationship('roles', 'name')
                             //     ->preload(config('filament-spatie-roles-permissions.preload_roles'))
-                        ])
-                    ])
+                        ]),
+                    ]),
             ]);
     }
 
@@ -92,17 +88,17 @@ class PermissionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RoleRelationManager::class
+            RoleRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index'  => ListPermissions::route('/'),
+            'index' => ListPermissions::route('/'),
             'create' => CreatePermission::route('/create'),
-            'edit'   => EditPermission::route('/{record}/edit'),
-            'view'   => ViewPermission::route('/{record}')
+            'edit' => EditPermission::route('/{record}/edit'),
+            'view' => ViewPermission::route('/{record}'),
         ];
     }
 }
