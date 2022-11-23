@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/phpsa/filament-authentication/compare/v2.2.1...v2.3.0) (2022-11-23)
+
+
+### Features
+
+* Attach user to role ([62d7c19](https://github.com/phpsa/filament-authentication/commit/62d7c19c394a06ad5341c327952e3468a6eb7798))
+
 ## [2.2.1](https://github.com/phpsa/filament-authentication/compare/v2.2.0...v2.2.1) (2022-09-11)
 
 
