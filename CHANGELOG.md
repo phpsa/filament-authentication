@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/phpsa/filament-authentication/compare/v2.3.0...v2.4.0) (2023-02-06)
+
+
+### Features
+
+* Portuguese translations ([#30](https://github.com/phpsa/filament-authentication/issues/30)) ([93f838e](https://github.com/phpsa/filament-authentication/commit/93f838e7c8dcd24d0e0f77f9c8b997addace98ea))
+
 # [2.3.0](https://github.com/phpsa/filament-authentication/compare/v2.2.1...v2.3.0) (2022-11-23)
 
 
