@@ -116,6 +116,7 @@ class Profile extends Page
                         ->schema([
                             TextInput::make('new_password')
                                 ->label('New Password')
+                                ->password()
                                 ->rules(['confirmed', Password::defaults()])
                                 ->autocomplete('new-password'),
                             TextInput::make('new_password_confirmation')
