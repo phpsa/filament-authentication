@@ -31,7 +31,7 @@ class LatestUsersWidget extends TableWidget
 
     protected function isTablePaginationEnabled(): bool
     {
-        return false;
+        return Config::get('filament-authentication.Widgets.LatestUsers.paginate', false)
     }
 
     public static function canView(): bool
