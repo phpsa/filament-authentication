@@ -11,11 +11,9 @@ class LatestUsersWidget extends TableWidget
 {
     protected function getTableQuery(): Builder
     {
-        $userClass = config('filament-authentication.models.User');
-
-        return $userClass::query()
-        ->latest()
-        ->limit(Config::get('filament-authentication.Widgets.LatestUsers.limit'));
+        return $this->getResource()::getEloquentQuery()
+            ->latest()
+            ->limit(Config::get('filament-authentication.Widgets.LatestUsers.limit'));
     }
 
     protected function getTableColumns(): array
