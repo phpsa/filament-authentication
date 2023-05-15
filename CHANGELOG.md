@@ -1,3 +1,11 @@
+## [2.4.1](https://github.com/phpsa/filament-authentication/compare/v2.4.0...v2.4.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* Add password type to input password ([#32](https://github.com/phpsa/filament-authentication/issues/32)) ([a5bd787](https://github.com/phpsa/filament-authentication/commit/a5bd78753d650a9772935fd6c3fbb429cd4e769e))
+* **widgets:** update LatestUsers query to use the configured resource ([#34](https://github.com/phpsa/filament-authentication/issues/34)) ([a09a2a8](https://github.com/phpsa/filament-authentication/commit/a09a2a80427effbe3e447e2073413c3eb8f6adcd))
+
 # [2.4.0](https://github.com/phpsa/filament-authentication/compare/v2.3.0...v2.4.0) (2023-02-06)
 
 
