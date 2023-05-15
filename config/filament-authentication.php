@@ -18,7 +18,8 @@ return [
         'LatestUsers' => [
             'enabled' => true,
             'limit'   => 5,
-            'sort'    => 0
+            'sort'    => 0,
+            'paginate' => false
         ],
     ],
     'preload_roles' => true,
