@@ -1,3 +1,10 @@
+## [2.4.2](https://github.com/phpsa/filament-authentication/compare/v2.4.1...v2.4.2) (2023-05-15)
+
+
+### Bug Fixes
+
+* missing ; on widget ([4c4d91d](https://github.com/phpsa/filament-authentication/commit/4c4d91d1cff87d00009c3665175022128906e93b))
+
 ## [2.4.1](https://github.com/phpsa/filament-authentication/compare/v2.4.0...v2.4.1) (2023-05-15)
 
 
