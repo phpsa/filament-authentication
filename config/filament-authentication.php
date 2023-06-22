@@ -27,5 +27,11 @@ return [
         'enabled'  => true,
         'guard'    => 'web',
         'redirect' => '/'
-    ]
+    ],
+    /**
+     * Section Group
+     */
+    // 'section' => [
+    //     'group' => __('Custom Group')
+    // ]
 ];
