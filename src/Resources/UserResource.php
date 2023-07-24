@@ -33,7 +33,7 @@ class UserResource extends Resource
 
     protected static function getNavigationGroup(): ?string
     {
-        return strval(__('filament-authentication::filament-authentication.section.group'));
+        return config('filament-authentication.section.group') ?? strval(__('filament-authentication::filament-authentication.section.group'));
     }
 
     public static function getLabel(): string
