@@ -32,6 +32,6 @@ return [
      * Section Group
      */
     // 'section' => [
-    //     'group' => __('Custom Group')
+    //     'group' => 'Custom Group'
     // ]
 ];
