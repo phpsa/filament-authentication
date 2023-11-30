@@ -15,7 +15,6 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Forms\Components\Section as Card;
-use Filament\Forms\Components\BelongsToManyMultiSelect;
 use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\EditRole;
 use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ViewRole;
 use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ListRoles;

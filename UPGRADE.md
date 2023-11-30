@@ -1,3 +1,8 @@
+Upgrading V2 - V3
+
+- Widget / panels no longer auto-published
+- Profile screen removed in favour of Filaments default one
+
 Breaking Change V1 - V2
 *****
 

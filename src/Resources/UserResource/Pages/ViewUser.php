@@ -31,7 +31,7 @@ class ViewUser extends ViewRecord
         $record = $this->getRecord();
         $user = Filament::auth()->user();
         if ($user === null || ImpersonateLink::allowed($user, $record) === false) {
-            throw null;
+            return null;
         }
 
         return Action::make('impersonate')

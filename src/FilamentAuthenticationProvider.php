@@ -40,13 +40,8 @@ class FilamentAuthenticationProvider extends PackageServiceProvider
         return config('filament-authentication.pages');
     }
 
-    protected function registerMacros(): void
+    public function packageRegistered(): void
     {
-        Filament::serving(function () {
-            Filament::registerUserMenuItems([
-                'account' => UserMenuItem::make()->url(route('filament.pages.profile')),
-            ]);
-        });
 
         TextColumn::macro('humanDate', function () {
             /** @var \Filament\Tables\Columns\TextColumn&\Filament\Tables\Columns\Concerns\CanFormatState $this */

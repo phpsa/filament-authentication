@@ -32,6 +32,28 @@ artisan vendor:publish --tag=filament-authentication-views
 artisan vendor:publish --tag=filament-authentication-translations
 ```
 
+
+in the panel file you are using: you will need to do the follwing:
+
+1) add the resources
+```php
+ public function panel(Panel $panel): Panel
+    {
+        return $panel
+            ->default()
+            ->id('admin')
+            ->path('/admin')
+            ...
+            ->profile() //to  publish filaments one :-)
+            ->resources(
+                 FilamentAuthentication::resources()
+            )
+             ->widgets([
+            ...
+                LatestUsersWidget::make(['limit' => 5, 'paginate' => true])
+```
+
+
 ## Additional Resources:
 ### Spatie Roles & Permissions
 If you have not yet configured this package it is automatically added by this installer, run the following steps:
@@ -76,37 +98,15 @@ We have a Custom Page Trait: `Phpsa\FilamentAuthentication\Traits\PagePolicyTrai
 By defining a model and mapping it with a `viewAny($user)` method you can define per policies whether or not to show the page in navigation.
 
 ## Widgets
-  `LatestUsersWidget` is by default published to your dashboard, this can be configured / disabled by editing the config in the filament-authentication config file:
-  ```php
-   'Widgets' => [
-        'LatesetUsers' => [
-            'enabled' => true,
-            'limit' => 5,
-        ],
-    ],
+  `LatestUsersWidget`  can be added to your dashboard by adding it to your panel widgets area..
 ```
+ LatestUsersWidget::class
+ or
+ LatestUsersWidget::make(['limit' => 5, 'paginate' => true])
+ ```
 
 Note that it is also attached to the UserPolicy::viewAny policy value if the policy exists
 
---It is planned to update the enabled to accept a callback function to allow for roles etc in the next version--
-
-## Profile
-Profile view for currently authed user
-
-## Extending
-Extend Profile:
-```php
-<?php
-
-namespace App\Filament\Pages;
-
-use Filament\Pages\Page;
-use Phpsa\FilamentAuthentication\Pages\Profile as PagesProfile;
-
-class Profile extends PagesProfile
-{}
-```
-or the view: `resources/views/vendor/filament-authentication/filament/pages/profile.blade.php` (you can publish existing one)
 
 
 ## Events
@@ -118,8 +118,8 @@ or the view: `resources/views/vendor/filament-authentication/filament/pages/prof
 ## Intergration with other packages:
 ** Comming soon **
 
-- https://filamentphp.com/plugins/socialite
 - https://filamentphp.com/plugins/2fa
+- https://filamentphp.com/plugins/socialite
 
 ## Changelog
 

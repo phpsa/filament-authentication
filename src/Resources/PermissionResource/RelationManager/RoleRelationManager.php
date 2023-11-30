@@ -44,7 +44,9 @@ class RoleRelationManager extends RelationManager
             ])
             ->headerActions([
                 CreateAction::make(),
-                AttachAction::make(),
+                AttachAction::make()->preloadRecordSelect(config('filament-authentication.preload_roles', true))
+                ->recordSelect(fn($select) => $select->multiple())
+                ->closeModalByClickingAway(false),
             ])
             ->actions([
                 DetachAction::make()
