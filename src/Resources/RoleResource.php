@@ -2,21 +2,26 @@
 
 namespace Phpsa\FilamentAuthentication\Resources;
 
-use Filament\Forms\Components\BelongsToManyMultiSelect;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables\Columns\TextColumn;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\CreateRole;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\EditRole;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ListRoles;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ViewRole;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager\PermissionRelationManager;
-use Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager\UserRelationManager;
 use Spatie\Permission\Models\Role;
+use Filament\Forms\Components\Grid;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Forms\Components\Section as Card;
+use Filament\Forms\Components\BelongsToManyMultiSelect;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\EditRole;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ViewRole;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ListRoles;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\CreateRole;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager\UserRelationManager;
+use Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager\PermissionRelationManager;
 
 class RoleResource extends Resource
 {
@@ -34,7 +39,7 @@ class RoleResource extends Resource
         return strval(__('filament-authentication::filament-authentication.section.role'));
     }
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return strval(__(config('filament-authentication.section.group') ?? 'filament-authentication::filament-authentication.section.group'));
     }
@@ -84,7 +89,17 @@ class RoleResource extends Resource
                     ->searchable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('guard_name')
+        ->multiple()
+        ->options(fn() => collect(config('auth.guards'))->keys()->mapWithKeys(fn($g) => [$g => $g])->toArray())
+            ])
+            ->actions([
+                ViewAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make(),
             ]);
     }
 
@@ -99,10 +114,10 @@ class RoleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListRoles::route('/'),
+            'index'  => ListRoles::route('/'),
             'create' => CreateRole::route('/create'),
-            'edit' => EditRole::route('/{record}/edit'),
-            'view' => ViewRole::route('/{record}'),
+            'edit'   => EditRole::route('/{record}/edit'),
+            'view'   => ViewRole::route('/{record}'),
         ];
     }
 }

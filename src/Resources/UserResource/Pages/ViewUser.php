@@ -3,7 +3,8 @@
 namespace Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
 use Filament\Facades\Filament;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\UnauthorizedException;
@@ -16,23 +17,25 @@ class ViewUser extends ViewRecord
         return Config::get('filament-authentication.resources.UserResource');
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
+        return collect([
+            EditAction::make(),
+            $this->impersonateAction(),
+        ])->filter()->toArray();
+    }
+
+    protected function impersonateAction(): ?Action
+    {
+        /** @var \Illuminate\Contracts\Auth\Authenticatable */
+        $record = $this->getRecord();
         $user = Filament::auth()->user();
-        if ($user === null) {
-            throw new UnauthorizedException();
+        if ($user === null || ImpersonateLink::allowed($user, $record) === false) {
+            throw null;
         }
 
-        if (ImpersonateLink::allowed($user, $this->record)) {
-            return array_merge([
-                Action::make('impersonate')
-                    ->button()
-                    ->action(function () {
-                        ImpersonateLink::impersonate($this->record);
-                    }),
-            ], parent::getActions());
-        }
-
-        return parent::getActions();
+        return Action::make('impersonate')
+            ->label(__('filament-authentication::filament-authentication.button.impersonate'))
+            ->action(fn() => ImpersonateLink::impersonate($record));
     }
 }

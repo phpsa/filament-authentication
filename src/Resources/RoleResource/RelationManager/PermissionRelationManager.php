@@ -2,33 +2,39 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager;
 
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\AttachAction;
+use Filament\Tables\Actions\DetachAction;
 use Spatie\Permission\PermissionRegistrar;
+use Filament\Tables\Actions\DissociateBulkAction;
+use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables\Actions\CreateAction;
 
-class PermissionRelationManager extends BelongsToManyRelationManager
+class PermissionRelationManager extends RelationManager
 {
     protected static string $relationship = 'permissions';
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name')
+                ->required()
                     ->label(strval(__('filament-authentication::filament-authentication.field.name'))),
                 TextInput::make('guard_name')
+                ->required()
                     ->label(strval(__('filament-authentication::filament-authentication.field.guard_name')))
                     ->default(config('auth.defaults.guard')),
 
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -39,8 +45,18 @@ class PermissionRelationManager extends BelongsToManyRelationManager
                     ->label(strval(__('filament-authentication::filament-authentication.field.guard_name'))),
 
             ])
-            ->filters([
-                //
+            ->headerActions([
+                CreateAction::make(),
+                AttachAction::make(),
+            ])
+            ->actions([
+                DetachAction::make()
+            ])
+
+            ->bulkActions([
+
+                DissociateBulkAction::make(),
+
             ]);
     }
 
@@ -52,5 +68,11 @@ class PermissionRelationManager extends BelongsToManyRelationManager
     public function afterDetach(): void
     {
         app(PermissionRegistrar::class)->forgetCachedPermissions();
+    }
+
+
+    public function isReadOnly(): bool
+    {
+        return false;
     }
 }

@@ -2,9 +2,11 @@
 
 namespace  Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
-use Filament\Resources\Pages\EditRecord;
-use Illuminate\Support\Facades\Config;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Config;
+use Filament\Resources\Pages\EditRecord;
 use Phpsa\FilamentAuthentication\Events\UserUpdated;
 
 class EditUser extends EditRecord
@@ -26,5 +28,13 @@ class EditUser extends EditRecord
     protected function afterSave(): void
     {
         Event::dispatch(new UserUpdated($this->record));
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            ViewAction::make(),
+            DeleteAction::make(),
+        ];
     }
 }

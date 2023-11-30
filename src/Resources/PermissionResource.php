@@ -2,20 +2,24 @@
 
 namespace Phpsa\FilamentAuthentication\Resources;
 
-use Filament\Forms\Components\BelongsToManyMultiSelect;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Forms\Components\Grid;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
-use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\CreatePermission;
-use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\EditPermission;
-use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\ListPermissions;
-use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\ViewPermission;
-use Phpsa\FilamentAuthentication\Resources\PermissionResource\RelationManager\RoleRelationManager;
+use Filament\Forms\Components\TextInput;
 use Spatie\Permission\Models\Permission;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Forms\Components\Section as Card;
+use Filament\Forms\Components\BelongsToManyMultiSelect;
+use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\EditPermission;
+use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\ViewPermission;
+use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\ListPermissions;
+use Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages\CreatePermission;
+use Phpsa\FilamentAuthentication\Resources\PermissionResource\RelationManager\RoleRelationManager;
 
 class PermissionResource extends Resource
 {
@@ -33,7 +37,7 @@ class PermissionResource extends Resource
         return strval(__('filament-authentication::filament-authentication.section.permission'));
     }
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return strval(__(config('filament-authentication.section.group') ?? 'filament-authentication::filament-authentication.section.group'));
     }
@@ -82,6 +86,14 @@ class PermissionResource extends Resource
             ])
             ->filters([
                 //
+            ])
+            ->actions([
+                ViewAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make(),
             ]);
     }
 
@@ -95,10 +107,10 @@ class PermissionResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListPermissions::route('/'),
+            'index'  => ListPermissions::route('/'),
             'create' => CreatePermission::route('/create'),
-            'edit' => EditPermission::route('/{record}/edit'),
-            'view' => ViewPermission::route('/{record}'),
+            'edit'   => EditPermission::route('/{record}/edit'),
+            'view'   => ViewPermission::route('/{record}'),
         ];
     }
 }

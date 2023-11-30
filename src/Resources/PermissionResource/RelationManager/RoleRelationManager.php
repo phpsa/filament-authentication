@@ -2,20 +2,24 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\RelationManager;
 
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\BelongsToManyRelationManager;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\AttachAction;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\DetachAction;
 use Spatie\Permission\PermissionRegistrar;
+use Filament\Tables\Actions\DissociateBulkAction;
+use Filament\Resources\RelationManagers\RelationManager;
 
-class RoleRelationManager extends BelongsToManyRelationManager
+class RoleRelationManager extends RelationManager
 {
     protected static string $relationship = 'roles';
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -28,7 +32,7 @@ class RoleRelationManager extends BelongsToManyRelationManager
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -38,8 +42,18 @@ class RoleRelationManager extends BelongsToManyRelationManager
                     ->label(strval(__('filament-authentication::filament-authentication.field.guard_name'))),
 
             ])
-            ->filters([
-                //
+            ->headerActions([
+                CreateAction::make(),
+                AttachAction::make(),
+            ])
+            ->actions([
+                DetachAction::make()
+            ])
+
+            ->bulkActions([
+
+                DissociateBulkAction::make(),
+
             ]);
     }
 
@@ -51,5 +65,10 @@ class RoleRelationManager extends BelongsToManyRelationManager
     public function afterDetach(): void
     {
         app(PermissionRegistrar::class)->forgetCachedPermissions();
+    }
+
+    public function isReadOnly(): bool
+    {
+        return false;
     }
 }

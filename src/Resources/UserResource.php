@@ -2,23 +2,26 @@
 
 namespace Phpsa\FilamentAuthentication\Resources;
 
-
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Illuminate\Support\Facades\Hash;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\TernaryFilter;
-use Illuminate\Support\Facades\Hash;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Forms\Components\Section as Card;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
-use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\CreateUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
-use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ListUsers;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
+use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ListUsers;
+use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\CreateUser;
 
 class UserResource extends Resource
 {
@@ -31,7 +34,7 @@ class UserResource extends Resource
         static::$model = config('filament-authentication.models.User');
     }
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return strval(__(config('filament-authentication.section.group') ?? 'filament-authentication::filament-authentication.section.group'));
     }
@@ -96,17 +99,12 @@ class UserResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
+
                 IconColumn::make('email_verified_at')
-                    ->options([
-                        'heroicon-o-check-circle',
-                        'heroicon-o-x-circle' => fn ($state): bool => $state === null,
-                    ])
-                    ->colors([
-                        'success',
-                        'danger' => fn ($state): bool => $state === null,
-                    ])
+                ->default(false)
+                    ->boolean()
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.verified_at'))),
-                TagsColumn::make('roles.name')
+                TextColumn::make('roles.name')->badge()
                     ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
                 TextColumn::make('created_at')
                     ->dateTime('Y-m-d H:i:s')
@@ -117,8 +115,14 @@ class UserResource extends Resource
                     ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
                     ->nullable(),
             ])
-            ->prependActions([
+            ->actions([
+                ViewAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
                 ImpersonateLink::make(),
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make(),
             ]);
     }
 
@@ -132,10 +136,10 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListUsers::route('/'),
+            'index'  => ListUsers::route('/'),
             'create' => CreateUser::route('/create'),
-            'edit' => EditUser::route('/{record}/edit'),
-            'view' => ViewUser::route('/{record}'),
+            'edit'   => EditUser::route('/{record}/edit'),
+            'view'   => ViewUser::route('/{record}'),
         ];
     }
 }

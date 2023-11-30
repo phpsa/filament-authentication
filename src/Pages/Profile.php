@@ -30,7 +30,7 @@ class Profile extends Page
      */
     public array $formData;
 
-    protected static function shouldRegisterNavigation(): bool
+    public static function shouldRegisterNavigation(): bool
     {
         return false;
     }
@@ -52,7 +52,7 @@ class Profile extends Page
     {
         $this->form->fill([
             // @phpstan-ignore-next-line
-            'name' => $this->getFormModel()->name,
+            'name'  => $this->getFormModel()->name,
             // @phpstan-ignore-next-line
             'email' => $this->getFormModel()->email,
         ]);
@@ -63,8 +63,8 @@ class Profile extends Page
         $data = $this->form->getState();
 
         $state = array_filter([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'name'     => $data['name'],
+            'email'    => $data['email'],
             'password' => $data['new_password'] ? Hash::make($data['new_password']) : null,
         ]);
 
@@ -83,7 +83,7 @@ class Profile extends Page
         return static::getUrl();
     }
 
-    protected function getBreadcrumbs(): array
+    public function getBreadcrumbs(): array
     {
         return [
             url()->current() => 'Profile',

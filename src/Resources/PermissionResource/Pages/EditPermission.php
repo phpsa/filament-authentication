@@ -2,10 +2,12 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages;
 
-use Filament\Resources\Pages\EditRecord;
+use Filament\Actions\ViewAction;
+use Filament\Actions\DeleteAction;
 use Illuminate\Support\Facades\Config;
-use Spatie\Permission\Contracts\Permission;
+use Filament\Resources\Pages\EditRecord;
 use Spatie\Permission\PermissionRegistrar;
+use Spatie\Permission\Contracts\Permission;
 
 class EditPermission extends EditRecord
 {
@@ -21,5 +23,13 @@ class EditPermission extends EditRecord
         }
 
         app(PermissionRegistrar::class)->forgetCachedPermissions();
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            ViewAction::make(),
+            DeleteAction::make(),
+        ];
     }
 }
