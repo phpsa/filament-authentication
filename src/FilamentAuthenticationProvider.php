@@ -24,6 +24,11 @@ class FilamentAuthenticationProvider extends PackageServiceProvider
         return config('filament-authentication.resources');
     }
 
+    protected function getWidgets(): array
+    {
+        return config('filament-authentication.resources.widgets');
+    }
+
     public function configurePackage(Package $package): void
     {
         Config::push('filament.middleware.base', ImpersonatingMiddleware::class);
