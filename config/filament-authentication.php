@@ -11,6 +11,9 @@ return [
         'RoleResource'       => \Phpsa\FilamentAuthentication\Resources\RoleResource::class,
         'PermissionResource' => \Phpsa\FilamentAuthentication\Resources\PermissionResource::class,
     ],
+    'widgets'             => [
+        'LatestUsersWidget'  => \Phpsa\FilamentAuthentication\Widgets\LatestUsersWidget::class,
+    ],
     'preload_roles'       => true,
     'preload_permissions' => true,
     'impersonate'         => [
