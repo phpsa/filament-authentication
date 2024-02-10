@@ -3,11 +3,12 @@
 namespace Phpsa\FilamentAuthentication\Actions;
 
 use Filament\Facades\Filament;
+use Illuminate\Routing\Redirector;
 use Filament\Tables\Actions\Action;
-use Illuminate\Contracts\Auth\Authenticatable as User;
 use Illuminate\Http\RedirectResponse;
 use Lab404\Impersonate\Services\ImpersonateManager;
-use Livewire\Redirector;
+use Illuminate\Contracts\Auth\Authenticatable as User;
+
 
 class ImpersonateLink
 {
@@ -36,7 +37,7 @@ class ImpersonateLink
         && (! method_exists($target, 'canBeImpersonated') || $target->canBeImpersonated());
     }
 
-    public static function impersonate(User $record): bool|Redirector|RedirectResponse
+    public static function impersonate(User $record): false|Redirector|RedirectResponse
     {
         if (! static::allowed(Filament::auth()->user(), $record)) {
             return false;
@@ -56,7 +57,7 @@ class ImpersonateLink
         return redirect(config('filament-authentication.impersonate.redirect', '/'));
     }
 
-    public static function leave(): bool|Redirector|RedirectResponse
+    public static function leave(): Redirector|RedirectResponse
     {
         if (! app(ImpersonateManager::class)->isImpersonating()) {
             return redirect('/');
