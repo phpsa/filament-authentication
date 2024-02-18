@@ -12,6 +12,7 @@ use Filament\Tables\Actions\DetachAction;
 use Spatie\Permission\PermissionRegistrar;
 use Filament\Tables\Actions\DissociateBulkAction;
 use Filament\Resources\RelationManagers\RelationManager;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class RoleRelationManager extends RelationManager
 {
@@ -44,7 +45,7 @@ class RoleRelationManager extends RelationManager
             ])
             ->headerActions([
                 CreateAction::make(),
-                AttachAction::make()->preloadRecordSelect(config('filament-authentication.preload_roles', true))
+                AttachAction::make()->preloadRecordSelect(FilamentAuthentication::getPlugin()->getPreloadRoles())
                 ->recordSelect(fn($select) => $select->multiple())
                 ->closeModalByClickingAway(false),
             ])

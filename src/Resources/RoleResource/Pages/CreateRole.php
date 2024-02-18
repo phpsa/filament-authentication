@@ -2,16 +2,17 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\RoleResource\Pages;
 
-use Filament\Resources\Pages\CreateRecord;
-use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Contracts\Role;
+use Illuminate\Support\Facades\Config;
+use Filament\Resources\Pages\CreateRecord;
 use Spatie\Permission\PermissionRegistrar;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class CreateRole extends CreateRecord
 {
     public static function getResource(): string
     {
-        return Config::get('filament-authentication.resources.RoleResource');
+        return FilamentAuthentication::getPlugin()->getResource('RoleResource');
     }
 
     public function afterSave(): void

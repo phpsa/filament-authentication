@@ -8,12 +8,13 @@ use Spatie\Permission\Contracts\Role;
 use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\EditRecord;
 use Spatie\Permission\PermissionRegistrar;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class EditRole extends EditRecord
 {
     public static function getResource(): string
     {
-        return Config::get('filament-authentication.resources.RoleResource');
+        return FilamentAuthentication::getPlugin()->getResource('RoleResource');
     }
 
     public function afterSave(): void

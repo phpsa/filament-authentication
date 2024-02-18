@@ -2,16 +2,17 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\Pages;
 
-use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Config;
-use Spatie\Permission\Contracts\Permission;
+use Filament\Resources\Pages\CreateRecord;
 use Spatie\Permission\PermissionRegistrar;
+use Spatie\Permission\Contracts\Permission;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class CreatePermission extends CreateRecord
 {
     public static function getResource(): string
     {
-        return Config::get('filament-authentication.resources.PermissionResource');
+        return FilamentAuthentication::getPlugin()->getResource('PermissionResource');
     }
 
     public function afterSave(): void

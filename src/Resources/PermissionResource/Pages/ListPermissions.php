@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Config;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Collection;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class ListPermissions extends ListRecords
 {
     public static function getResource(): string
     {
-        return Config::get('filament-authentication.resources.PermissionResource');
+        return FilamentAuthentication::getPlugin()->getResource('PermissionResource');
     }
 
     protected function getHeaderActions(): array

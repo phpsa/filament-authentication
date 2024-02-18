@@ -17,6 +17,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Forms\Components\Section as Card;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
@@ -31,7 +32,7 @@ class UserResource extends Resource
 
     public function __construct()
     {
-        static::$model = config('filament-authentication.models.User');
+        static::$model = FilamentAuthentication::getPlugin()->getModel('User');
     }
 
     public static function getNavigationGroup(): ?string
@@ -78,7 +79,7 @@ class UserResource extends Resource
                         Select::make('roles')
                             ->multiple()
                             ->relationship('roles', 'name')
-                            ->preload(config('filament-authentication.preload_roles'))
+                            ->preload(FilamentAuthentication::getPlugin()->getPreloadRoles())
                             ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
                     ])->columns(2),
             ]);

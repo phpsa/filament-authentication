@@ -15,6 +15,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Forms\Components\Section as Card;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\EditRole;
 use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ViewRole;
 use Phpsa\FilamentAuthentication\Resources\RoleResource\Pages\ListRoles;
@@ -30,7 +31,7 @@ class RoleResource extends Resource
 
     public function __construct()
     {
-        static::$model = config('filament-authentication.models.Role');
+        static::$model = FilamentAuthentication::getPlugin()->getModel('Role');
     }
 
     public static function getLabel(): string
@@ -63,11 +64,7 @@ class RoleResource extends Resource
                                     ->label(strval(__('filament-authentication::filament-authentication.field.guard_name')))
                                     ->required()
                                     ->default(config('auth.defaults.guard')),
-                                // BelongsToManyMultiSelect::make('permissions')
-                                //     ->label(strval(__('filament-authentication::filament-authentication.field.permissions')))
-                                //     ->relationship('permissions', 'name')
-                                //     ->hidden()
-                                //     ->preload(config('filament-spatie-roles-permissions.preload_permissions'))
+
                             ]),
                     ]),
             ]);

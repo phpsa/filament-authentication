@@ -7,6 +7,7 @@ use Filament\Widgets\TableWidget;
 use Illuminate\Support\Facades\Config;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class LatestUsersWidget extends TableWidget
 {
@@ -45,6 +46,6 @@ class LatestUsersWidget extends TableWidget
 
     public static function getResource(): string
     {
-        return Config::get('filament-authentication.resources.UserResource');
+        return FilamentAuthentication::getPlugin()->getResource('UserResource');
     }
 }

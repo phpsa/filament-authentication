@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\EditRecord;
 use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Contracts\Permission;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class EditPermission extends EditRecord
 {
     public static function getResource(): string
     {
-        return Config::get('filament-authentication.resources.PermissionResource');
+        return FilamentAuthentication::getPlugin()->getResource('PermissionResource');
     }
 
     public function afterSave(): void

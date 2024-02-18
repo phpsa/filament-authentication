@@ -8,7 +8,7 @@ use Filament\Tables\Actions\Action;
 use Illuminate\Http\RedirectResponse;
 use Lab404\Impersonate\Services\ImpersonateManager;
 use Illuminate\Contracts\Auth\Authenticatable as User;
-
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class ImpersonateLink
 {
@@ -30,7 +30,8 @@ class ImpersonateLink
      */
     public static function allowed(User $current, User $target): bool
     {
-        return config('filament-authentication.impersonate.enabled', false)
+        $enabled = FilamentAuthentication::getPlugin()->impersonateEnabled();
+        return $enabled
         && $current->isNot($target)
         && ! app(ImpersonateManager::class)->isImpersonating()
         && (! method_exists($current, 'canImpersonate') || $current->canImpersonate())
@@ -46,19 +47,22 @@ class ImpersonateLink
         app(ImpersonateManager::class)->take(
             Filament::auth()->user(),
             $record,
-            config('filament-authentication.impersonate.guard', 'web')
+            FilamentAuthentication::getPlugin()->getImpersonateGuard()
         );
 
+        session()->put('impersonate.back_to', url()->previous());
+
         session()->forget(array_unique([
-            'password_hash_'.config('filament-authentication.impersonate.guard', 'web'),
-            'password_hash_'.config('filament.auth.guard'),
+            'password_hash_' . FilamentAuthentication::getPlugin()->getImpersonateGuard(),
+            'password_hash_' . config('filament.auth.guard'),
         ]));
 
-        return redirect(config('filament-authentication.impersonate.redirect', '/'));
+        return redirect(FilamentAuthentication::getPlugin()->getImpersonateRedirect());
     }
 
     public static function leave(): Redirector|RedirectResponse
     {
+
         if (! app(ImpersonateManager::class)->isImpersonating()) {
             return redirect('/');
         }
@@ -66,12 +70,12 @@ class ImpersonateLink
         app(ImpersonateManager::class)->leave();
 
         session()->forget(array_unique([
-            'password_hash_'.config('filament-authentication.impersonate.guard'),
-            'password_hash_'.config('filament.auth.guard'),
+            'password_hash_' . FilamentAuthentication::getPlugin()->getImpersonateGuard(),
+            'password_hash_' . config('filament.auth.guard'),
         ]));
 
         return redirect(
-            session()->pull('impersonate.back_to') ?? config('filament.path')
+            session()->pull('impersonate.back_to') ?? '/'
         );
     }
 }

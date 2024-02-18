@@ -2,19 +2,20 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
-use Filament\Facades\Filament;
 use Filament\Actions\Action;
+use Filament\Facades\Filament;
 use Filament\Actions\EditAction;
-use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Support\Facades\Config;
+use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Validation\UnauthorizedException;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 
 class ViewUser extends ViewRecord
 {
     public static function getResource(): string
     {
-        return Config::get('filament-authentication.resources.UserResource');
+        return FilamentAuthentication::getPlugin()->getResource('UserResource');
     }
 
     protected function getHeaderActions(): array

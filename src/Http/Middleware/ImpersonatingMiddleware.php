@@ -24,7 +24,7 @@ class ImpersonatingMiddleware
         $response->setContent(
             str_replace(
                 '</body>',
-                $this->getHtmlContent($request).'</body>',
+                $this->getHtmlContent($request) . '</body>',
                 // @phpstan-ignore-next-line
                 $response->getContent()
             )

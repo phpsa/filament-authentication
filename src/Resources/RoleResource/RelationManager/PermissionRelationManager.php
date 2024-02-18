@@ -7,11 +7,12 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\AttachAction;
+use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DetachAction;
 use Spatie\Permission\PermissionRegistrar;
-use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Actions\CreateAction;
 use Filament\Tables\Actions\DetachBulkAction;
+use Filament\Resources\RelationManagers\RelationManager;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class PermissionRelationManager extends RelationManager
 {
@@ -48,7 +49,7 @@ class PermissionRelationManager extends RelationManager
             ->headerActions([
                 CreateAction::make(),
                 AttachAction::make()
-                    ->preloadRecordSelect(config('filament-authentication.preload_permissions', true))
+                    ->preloadRecordSelect(FilamentAuthentication::getPlugin()->getPreloadPermissions())
                     ->recordSelect(fn($select) => $select->multiple())
                     ->closeModalByClickingAway(false),
             ])

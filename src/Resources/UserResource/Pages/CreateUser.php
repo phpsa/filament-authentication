@@ -2,16 +2,17 @@
 
 namespace  Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
-use Filament\Resources\Pages\CreateRecord;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Config;
+use Filament\Resources\Pages\CreateRecord;
 use Phpsa\FilamentAuthentication\Events\UserCreated;
+use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class CreateUser extends CreateRecord
 {
     public static function getResource(): string
     {
-        return Config::get('filament-authentication.resources.UserResource');
+        return FilamentAuthentication::getPlugin()->getResource('UserResource');
     }
 
     protected function afterCreate(): void
