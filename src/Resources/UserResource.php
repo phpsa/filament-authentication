@@ -4,16 +4,22 @@ namespace Phpsa\FilamentAuthentication\Resources;
 
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Arr;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Forms\Components\Section as Card;
@@ -87,7 +93,7 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
+        $table = $table
             ->columns([
                 TextColumn::make('id')
                     ->sortable()
@@ -115,16 +121,36 @@ class UserResource extends Resource
                 TernaryFilter::make('email_verified_at')
                     ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
                     ->nullable(),
-            ])
-            ->actions([
+            ]);
+
+            $actions = [
                 ViewAction::make(),
                 EditAction::make(),
+                FilamentAuthentication::getPlugin()->impersonateEnabled() ? ImpersonateLink::make() : null,
                 DeleteAction::make(),
-                ImpersonateLink::make(),
-            ])
-            ->bulkActions([
+                FilamentAuthentication::getPlugin()->usesSoftDeletes() ? ForceDeleteAction::make() : null,
+                FilamentAuthentication::getPlugin()->usesSoftDeletes() ? RestoreAction::make() : null,
+            ];
+
+            $bulkActions = [
                 DeleteBulkAction::make(),
-            ]);
+                FilamentAuthentication::getPlugin()->usesSoftDeletes() ? RestoreBulkAction::make() : null,
+                FilamentAuthentication::getPlugin()->usesSoftDeletes() ? ForceDeleteBulkAction::make() : null,
+            ];
+
+
+            $table->actions(Arr::whereNotNull($actions));
+            $table->bulkActions(Arr::whereNotNull($bulkActions));
+
+            if(FilamentAuthentication::getPlugin()->usesSoftDeletes()) {
+                $table->pushFilters([
+                    \Filament\Tables\Filters\TrashedFilter::make()
+                ]);
+            }
+
+            return $table;
+
+
     }
 
     public static function getRelations(): array
@@ -142,5 +168,15 @@ class UserResource extends Resource
             'edit'   => EditUser::route('/{record}/edit'),
             'view'   => ViewUser::route('/{record}'),
         ];
+    }
+
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->when(
+            FilamentAuthentication::getPlugin()->usesSoftDeletes(),
+            fn(Builder $builder) => $builder->withTrashed()
+        );
     }
 }

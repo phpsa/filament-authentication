@@ -5,6 +5,7 @@ namespace Phpsa\FilamentAuthentication;
 use Closure;
 use Filament\Panel;
 use App\Models\User;
+use Illuminate\Support\Arr;
 use Filament\Contracts\Plugin;
 use Spatie\Permission\Models\Role;
 use Filament\Tables\Columns\TextColumn;
@@ -21,6 +22,7 @@ class FilamentAuthentication implements Plugin
     protected bool $impersonate = false;
     protected string $impersonateGuard = 'web';
     protected string|Closure $impersonateRedirect = '/';
+    protected bool $softDeletes = false;
 
     /**
      * @var array<string, class-string>
@@ -136,12 +138,24 @@ class FilamentAuthentication implements Plugin
      */
     public function overrideResources(array $overrides): self
     {
-        $this->resources = array_merge($this->resources, $overrides);
+        $resources = array_merge($this->resources, $overrides);
+        $this->resources = Arr::whereNotNull($resources);
         return $this;
     }
 
     public function getResource(string $resource): string
     {
         return $this->resources[$resource];
+    }
+
+    public function withSoftDeletes(bool $enabled = true): self
+    {
+        $this->softDeletes = $enabled;
+        return $this;
+    }
+
+    public function usesSoftDeletes(): bool
+    {
+        return $this->softDeletes;
     }
 }

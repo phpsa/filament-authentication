@@ -4,6 +4,7 @@ namespace  Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
 use Filament\Actions\ViewAction;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\RestoreAction;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Config;
 use Filament\Resources\Pages\EditRecord;
@@ -36,6 +37,7 @@ class EditUser extends EditRecord
         return [
             ViewAction::make(),
             DeleteAction::make(),
+            RestoreAction::make(),
         ];
     }
 }
