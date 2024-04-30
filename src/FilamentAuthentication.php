@@ -134,7 +134,7 @@ class FilamentAuthentication implements Plugin
     }
 
         /**
-     * @param array<string,class-string> $overrides
+     * @param array<string,class-string|null> $overrides
      */
     public function overrideResources(array $overrides): self
     {
