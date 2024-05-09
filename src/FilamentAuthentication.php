@@ -4,16 +4,11 @@ namespace Phpsa\FilamentAuthentication;
 
 use Closure;
 use Filament\Panel;
-use App\Models\User;
 use Illuminate\Support\Arr;
 use Filament\Contracts\Plugin;
-use Spatie\Permission\Models\Role;
 use Filament\Tables\Columns\TextColumn;
-use Spatie\Permission\Models\Permission;
-use Phpsa\FilamentAuthentication\Resources\RoleResource;
-use Phpsa\FilamentAuthentication\Resources\UserResource;
-use Phpsa\FilamentAuthentication\Resources\PermissionResource;
 use Phpsa\FilamentAuthentication\Http\Middleware\ImpersonatingMiddleware;
+use Phpsa\FilamentAuthentication\Http\Middleware\RenewPasswordMiddleware;
 
 class FilamentAuthentication implements Plugin
 {
@@ -27,24 +22,24 @@ class FilamentAuthentication implements Plugin
     /**
      * @var array<string, class-string>
      */
-    protected array $models              = [
-        'User'       => User::class,
-        'Role'       => Role::class,
-        'Permission' => Permission::class,
-    ];
+    protected array $models              = [];
 
     /**
      * @var array<string, class-string>
      */
-    protected array $resources =  [
-        'UserResource'       => UserResource::class,
-        'RoleResource'       => RoleResource::class,
-        'PermissionResource' => PermissionResource::class,
-    ];
+    protected array $resources =  [];
 
     public static function make(): self
     {
-        return new static();
+        $instance = new static();
+        $config = config('filament-authentication');
+        $instance->overrideModels($config['models']);
+        $instance->overrideResources($config['resources']);
+        $instance->setPreload($config['preload_roles'], $config['preload_permissions']);
+        $instance->setImpersonation($config['impersonate']['enabled'], $config['impersonate']['guard'], $config['impersonate']['redirect']);
+        $instance->withSoftDeletes($config['soft_deletes']);
+
+        return $instance;
     }
 
     public static function getPlugin(): self

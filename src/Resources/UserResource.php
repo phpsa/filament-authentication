@@ -10,25 +10,28 @@ use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Actions\RestoreAction;
-use Filament\Tables\Actions\RestoreBulkAction;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\ForceDeleteAction;
-use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Forms\Components\Section as Card;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Phpsa\FilamentAuthentication\FilamentAuthentication;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
+use Phpsa\FilamentAuthentication\Traits\LogsAuthentication;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ListUsers;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\CreateUser;
+use Phpsa\FilamentAuthentication\Resources\UserResource\RelationManager\AuthenticationLogsRelationManager;
 
 class UserResource extends Resource
 {
@@ -36,9 +39,10 @@ class UserResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public function __construct()
+
+    public static function getModel(): string
     {
-        static::$model = FilamentAuthentication::getPlugin()->getModel('User');
+        return FilamentAuthentication::getPlugin()->getModel('User');
     }
 
     public static function getNavigationGroup(): ?string
@@ -56,6 +60,20 @@ class UserResource extends Resource
         return strval(__('filament-authentication::filament-authentication.section.users'));
     }
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return config('filament-authentication.navigation.user.register', true);
+    }
+
+    public static function getNavigationIcon(): string
+    {
+        return config('filament-authentication.navigation.user.icon');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('filament-authentication.navigation.user.sort');
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -138,7 +156,6 @@ class UserResource extends Resource
                 FilamentAuthentication::getPlugin()->usesSoftDeletes() ? ForceDeleteBulkAction::make() : null,
             ];
 
-
             $table->actions(Arr::whereNotNull($actions));
             $table->bulkActions(Arr::whereNotNull($bulkActions));
 
@@ -148,15 +165,21 @@ class UserResource extends Resource
                 ]);
             }
 
-            return $table;
+        if (in_array(LogsAuthentication::class, class_uses_recursive(FilamentAuthentication::getPlugin()->getModel('User')))) {
+            $table->pushColumns([TextColumn::make('latestSuccessfullAuthentication.login_at')
+            ->dateTime('Y-m-d H:i:s')
+            ->description(fn(Model $record) => $record->latestSuccessfullAuthentication?->ip_address ?? '-')
+            ->label(strval(__('filament-authentication::filament-authentication.field.user.last_login_at')))
+            ]);
+        }
 
-
+        return $table;
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            AuthenticationLogsRelationManager::class
         ];
     }
 

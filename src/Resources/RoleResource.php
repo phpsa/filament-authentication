@@ -29,9 +29,9 @@ class RoleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
-    public function __construct()
+    public static function getModel(): string
     {
-        static::$model = FilamentAuthentication::getPlugin()->getModel('Role');
+        return FilamentAuthentication::getPlugin()->getModel('Role');
     }
 
     public static function getLabel(): string
@@ -48,6 +48,22 @@ class RoleResource extends Resource
     {
         return strval(__('filament-authentication::filament-authentication.section.roles'));
     }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return config('filament-authentication.navigation.role.register', true);
+    }
+
+    public static function getNavigationIcon(): string
+    {
+        return config('filament-authentication.navigation.role.icon');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('filament-authentication.navigation.role.sort');
+    }
+
 
     public static function form(Form $form): Form
     {

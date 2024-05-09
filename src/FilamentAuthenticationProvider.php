@@ -22,6 +22,8 @@ class FilamentAuthenticationProvider extends PackageServiceProvider
             ->hasViews()
             ->hasRoute('web')
             ->hasMigration('create_filament_authentication_tables')
+            ->hasConfigFile('filament-authentication')
+            ->hasCommand(InstallCommand::class)
             ->hasTranslations();
         Event::subscribe(AuthenticationLoggingSubscriber::class);
     }

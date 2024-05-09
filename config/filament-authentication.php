@@ -48,6 +48,7 @@ return [
     // 'section' => [
     //     'group' => 'Custom Group'
     // ]
+    'soft_deletes'        => false,
     'authentication_log'  => [
         'table_name'    => 'authentication_log',
         //The database connection where the authentication_log table resides. Leave empty to use the default

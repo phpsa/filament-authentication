@@ -28,9 +28,9 @@ class PermissionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
 
-    public function __construct()
+    public static function getModel(): string
     {
-        static::$model = FilamentAuthentication::getPlugin()->getModel('Permission');
+        return FilamentAuthentication::getPlugin()->getModel('Permission');
     }
 
     public static function getLabel(): string
@@ -47,6 +47,22 @@ class PermissionResource extends Resource
     {
         return strval(__('filament-authentication::filament-authentication.section.permissions'));
     }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return config('filament-authentication.navigation.permission.register', true);
+    }
+
+    public static function getNavigationIcon(): string
+    {
+        return config('filament-authentication.navigation.permission.icon');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('filament-authentication.navigation.permission.sort');
+    }
+
 
     public static function form(Form $form): Form
     {
