@@ -55,7 +55,7 @@ class FilamentAuthentication implements Plugin
     public function register(Panel $panel): void
     {
         $panel->resources($this->resources);
-        $panel->middleware([ImpersonatingMiddleware::class]);
+        $panel->middleware([ImpersonatingMiddleware::class, RenewPasswordMiddleware::class]);
     }
 
     public function boot(Panel $panel): void

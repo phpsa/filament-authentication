@@ -2,14 +2,14 @@
 
 namespace Phpsa\FilamentAuthentication;
 
-use Filament\Facades\Filament;
-use Filament\Navigation\UserMenuItem;
-use Illuminate\Support\Facades\Config;
-use Filament\Tables\Columns\TextColumn;
+use Livewire\Livewire;
+use Illuminate\Support\Facades\Event;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Phpsa\FilamentAuthentication\Widgets\LatestUsersWidget;
-use Phpsa\FilamentAuthentication\Http\Middleware\ImpersonatingMiddleware;
+use Phpsa\FilamentAuthentication\Commands\InstallCommand;
+use Phpsa\FilamentAuthentication\Commands\UpdateUserPasswordToUpdatedCommand;
+use Phpsa\FilamentAuthentication\Pages\Auth\RenewPassword;
+use Phpsa\FilamentAuthentication\Subscribers\AuthenticationLoggingSubscriber;
 
 class FilamentAuthenticationProvider extends PackageServiceProvider
 {
@@ -22,9 +22,20 @@ class FilamentAuthenticationProvider extends PackageServiceProvider
             ->hasViews()
             ->hasRoute('web')
             ->hasMigration('create_filament_authentication_tables')
+            ->hasMigration('create_filament_password_renew_table')
             ->hasConfigFile('filament-authentication')
             ->hasCommand(InstallCommand::class)
+            ->hasCommand(UpdateUserPasswordToUpdatedCommand::class)
             ->hasTranslations();
+
         Event::subscribe(AuthenticationLoggingSubscriber::class);
+    }
+
+    public function packageBooted()
+    {
+
+        Livewire::component('phpsa.filament-authentication.pages.auth.renew-password', RenewPassword::class);
+
+        parent::packageBooted();
     }
 }

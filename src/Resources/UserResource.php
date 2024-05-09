@@ -26,6 +26,7 @@ use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Phpsa\FilamentAuthentication\FilamentAuthentication;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
+use Phpsa\FilamentAuthentication\Traits\CanRenewPassword;
 use Phpsa\FilamentAuthentication\Traits\LogsAuthentication;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
@@ -111,6 +112,7 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
+
         $table = $table
             ->columns([
                 TextColumn::make('id')
@@ -141,35 +143,41 @@ class UserResource extends Resource
                     ->nullable(),
             ]);
 
-            $actions = [
-                ViewAction::make(),
-                EditAction::make(),
-                FilamentAuthentication::getPlugin()->impersonateEnabled() ? ImpersonateLink::make() : null,
-                DeleteAction::make(),
-                FilamentAuthentication::getPlugin()->usesSoftDeletes() ? ForceDeleteAction::make() : null,
-                FilamentAuthentication::getPlugin()->usesSoftDeletes() ? RestoreAction::make() : null,
-            ];
+        $actions = [
+            ViewAction::make(),
+            EditAction::make(),
+            FilamentAuthentication::getPlugin()->impersonateEnabled() ? ImpersonateLink::make() : null,
+            DeleteAction::make(),
+            FilamentAuthentication::getPlugin()->usesSoftDeletes() ? ForceDeleteAction::make() : null,
+            FilamentAuthentication::getPlugin()->usesSoftDeletes() ? RestoreAction::make() : null,
+        ];
 
-            $bulkActions = [
-                DeleteBulkAction::make(),
-                FilamentAuthentication::getPlugin()->usesSoftDeletes() ? RestoreBulkAction::make() : null,
-                FilamentAuthentication::getPlugin()->usesSoftDeletes() ? ForceDeleteBulkAction::make() : null,
-            ];
+        $bulkActions = [
+            DeleteBulkAction::make(),
+            FilamentAuthentication::getPlugin()->usesSoftDeletes() ? RestoreBulkAction::make() : null,
+            FilamentAuthentication::getPlugin()->usesSoftDeletes() ? ForceDeleteBulkAction::make() : null,
+        ];
 
-            $table->actions(Arr::whereNotNull($actions));
-            $table->bulkActions(Arr::whereNotNull($bulkActions));
+        $table->actions(Arr::whereNotNull($actions));
+        $table->bulkActions(Arr::whereNotNull($bulkActions));
 
-            if(FilamentAuthentication::getPlugin()->usesSoftDeletes()) {
-                $table->pushFilters([
-                    \Filament\Tables\Filters\TrashedFilter::make()
-                ]);
-            }
+        if (FilamentAuthentication::getPlugin()->usesSoftDeletes()) {
+            $table->pushFilters([
+                \Filament\Tables\Filters\TrashedFilter::make()
+            ]);
+        }
 
         if (in_array(LogsAuthentication::class, class_uses_recursive(FilamentAuthentication::getPlugin()->getModel('User')))) {
             $table->pushColumns([TextColumn::make('latestSuccessfullAuthentication.login_at')
             ->dateTime('Y-m-d H:i:s')
             ->description(fn(Model $record) => $record->latestSuccessfullAuthentication?->ip_address ?? '-')
             ->label(strval(__('filament-authentication::filament-authentication.field.user.last_login_at')))
+            ]);
+        }
+        if (in_array(CanRenewPassword::class, class_uses_recursive(FilamentAuthentication::getPlugin()->getModel('User')))) {
+            $table->pushColumns([TextColumn::make('latestRenewable.created_at')
+            ->dateTime('Y-m-d H:i:s')
+                       ->label(strval(__('filament-authentication::filament-authentication.field.user.last_password_updated')))
             ]);
         }
 
@@ -198,8 +206,8 @@ class UserResource extends Resource
     {
         return parent::getEloquentQuery()
             ->when(
-            FilamentAuthentication::getPlugin()->usesSoftDeletes(),
-            fn(Builder $builder) => $builder->withTrashed()
-        );
+                FilamentAuthentication::getPlugin()->usesSoftDeletes(),
+                fn(Builder $builder) => $builder->withTrashed()
+            );
     }
 }
