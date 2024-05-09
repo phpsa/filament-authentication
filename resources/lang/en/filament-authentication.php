@@ -37,6 +37,8 @@ return [
     'section.role'                  => 'Role',
     'section.roles'                 => 'Roles',
     'section.roles_and_permissions' => 'Roles and Permissions',
+    'section.authentication_log.label'           => 'Authentication Log',
+    'section.authentication_log.plural-label'    => 'Authentication Logs',
 
 
     /*
@@ -52,4 +54,13 @@ return [
 
     'text.profile'                  => 'Profile',
 
+
+    'authentication-log.table.heading'           => 'Authentication Logs',
+    'authentication-log.column.authenticatable'  => 'User',
+    'authentication-log.column.ip_address'       => 'IP Address',
+    'authentication-log.column.user_agent'       => 'User Agent',
+    'authentication-log.column.login_at'         => 'Login At',
+    'authentication-log.column.login_successful' => 'Login Successful',
+    'authentication-log.column.logout_at'        => 'Logout At',
+    'authentication-log.column.cleared_by_user'  => 'Cleared By User',
 ];
