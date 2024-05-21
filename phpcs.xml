@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Standards">
+
+    <description>The Laravel Coding Standards</description>
+    <rule ref="PSR2">
+        <exclude name="PSR1.Methods.CamelCapsMethodName"/>
+        <exclude name="PSR1.Classes.ClassDeclaration"/>
+    </rule>
+
+        <!-- indentation of 4 spaces -->
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="exact" value="true" />
+        </properties>
+    </rule>
+
+        <!-- We like to have a space after the ! operator. -->
+    <rule ref="Generic.Formatting.SpaceAfterNot" />
+
+    <!-- Rules to improve array formatting. -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+    <rule ref="Generic.Arrays.ArrayIndent" />
+    <rule ref="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned" />
+
+    <!-- Remove trailing whitespace, multiple blank lines within functions, etc. -->
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+        <properties>
+            <property name="ignoreBlankLines" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.StartFile">
+        <severity>10</severity>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EndFile">
+        <severity>10</severity>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
+        <severity>10</severity>
+    </rule>
+
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+     <properties>
+        <property name="exact" value="true" />
+    </properties>
+    </rule>
+
+
+
+
+	<exclude-pattern>*/_ide_helper.php</exclude-pattern>
+    <exclude-pattern>*/cache/*</exclude-pattern>
+    <exclude-pattern>*/*.js</exclude-pattern>
+    <exclude-pattern>*/*.css</exclude-pattern>
+    <exclude-pattern>*/*.xml</exclude-pattern>
+    <exclude-pattern>*/*.blade.php</exclude-pattern>
+    <exclude-pattern>*/autoload.php</exclude-pattern>
+    <exclude-pattern>*/storage/*</exclude-pattern>
+    <exclude-pattern>*/docs/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/migrations/*</exclude-pattern>
+    <exclude-pattern>*/config/*</exclude-pattern>
+    <exclude-pattern>*/public/index.php</exclude-pattern>
+
+	<file>app</file>
+	<file>database</file>
+    <file>config</file>
+    <file>public</file>
+    <file>resources</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <arg name="colors"/>
+    <arg value="spvn"/>
+    <ini name="memory_limit" value="512M"/>
+
+
+
+
+
+</ruleset>
