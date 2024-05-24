@@ -30,12 +30,12 @@ class AuthenticationLoggingSubscriber
         ];
     }
 
-    protected function shouldLogAuthentication(Authenticatable $user): bool
+    protected function shouldLogAuthentication(?Authenticatable $user): bool
     {
-        return in_array(LogsAuthentication::class, class_uses_recursive(get_class($user)));
+        return !is_null($user) && in_array(LogsAuthentication::class, class_uses_recursive(get_class($user)));
     }
 
-    protected function logEvent(Authenticatable $user, bool $wasSuccessful, array $overrides = [])
+    protected function logEvent(?Authenticatable $user, bool $wasSuccessful, array $overrides = [])
     {
         if (! $this->shouldLogAuthentication($user)) {
             return;
