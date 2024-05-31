@@ -17,7 +17,7 @@ composer require phpsa/filament-authentication
 and run the install command
 
 ```bash
-php artisan filament-authentication::install
+php artisan filament-authentication:install
 ```
 this will publish the config file and migrations
 
