@@ -139,6 +139,9 @@ Enable this & configure this as Follows:
 
 this will force a user to update their password, note -- all existing users will initially be foreced to, this can be ignored by running the following command:
 
+From V5.0.0 - there is a new validation rule that can be added to validate that a password has not been used before.
+`Phpsa\FilamentAuthentication\Rules\PreventPasswordReuseRule` - this will use the value from config `filament-authentication.password_renew.prevent_password_reuse` 0 to disable, any number of previous to block out fro re-use.
+
 ## Authentication Log
 
 Introduced in V4.2.0 - this allows you to log each user login attempt.

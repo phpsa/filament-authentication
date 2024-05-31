@@ -63,6 +63,8 @@ return [
         'prune'                      => 365,
         //renew password days period, 0 to disable
         'renew_password_days_period' => 90,
+        //prevent password reuse for x times, 0 to disable
+        'prevent_password_reuse'     => 0,
     ],
 
 
