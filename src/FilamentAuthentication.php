@@ -55,7 +55,12 @@ class FilamentAuthentication implements Plugin
     public function register(Panel $panel): void
     {
         $panel->resources($this->resources);
-        $panel->middleware([ImpersonatingMiddleware::class, RenewPasswordMiddleware::class]);
+        if ($this->impersonateEnabled()) {
+            $panel->middleware([ImpersonatingMiddleware::class]);
+        }
+        if ((int) config('filament-authentication.password_renew.renew_password_days_period', 0) > 0) {
+            $panel->middleware([RenewPasswordMiddleware::class]);
+        }
     }
 
     public function boot(Panel $panel): void

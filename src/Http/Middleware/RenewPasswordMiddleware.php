@@ -44,6 +44,6 @@ class RenewPasswordMiddleware
         }
 
         $panel ??= Filament::getCurrentPanel()->getId();
-        return Redirect::guest(URL::route("filament.{$panel}.auth.password.renew"));
+        return Redirect::guest(URL::route("filament.{$panel}.fa.password.renew"));
     }
 }

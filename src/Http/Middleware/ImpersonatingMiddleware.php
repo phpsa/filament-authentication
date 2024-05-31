@@ -2,10 +2,10 @@
 
 namespace Phpsa\FilamentAuthentication\Http\Middleware;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Str;
+use Filament\Facades\Filament;
+use Illuminate\Http\JsonResponse;
 use Lab404\Impersonate\Services\ImpersonateManager;
 
 class ImpersonatingMiddleware
@@ -33,8 +33,10 @@ class ImpersonatingMiddleware
 
     protected function getHtmlContent($request): string
     {
+        $panel ??= Filament::getCurrentPanel()->getId();
         return view('filament-authentication::impersonating-banner', [
-            'isFilament' => Str::startsWith($request->path(), config('filament.path')),
+            'panel'         => $panel,
+            'impersonating' => Filament::getUserName(auth()->user())
         ])->render();
     }
 
