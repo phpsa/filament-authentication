@@ -23,7 +23,7 @@ Route::name('filament.')->group(function () {
                 ->prefix($panel->getPath())
                 ->group(function () use ($panel, $plugin) {
 
-                    if ($plugin->impersonateEnabled() === false) {
+                    if ($plugin->impersonateEnabled()) {
                         Route::get('/impersonate/stop', fn () => ImpersonateLink::leave())
                         ->name('fa.stop.impersonation');
                     }
