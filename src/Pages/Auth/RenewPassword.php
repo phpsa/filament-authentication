@@ -14,6 +14,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Yebor974\Filament\RenewPassword\RenewPasswordPlugin;
 use Illuminate\Validation\Rules\Password as PasswordRule;
+use Phpsa\FilamentAuthentication\Rules\PreventPasswordReuseRule;
 use Phpsa\FilamentAuthentication\Traits\CanRenewPassword;
 
 class RenewPassword extends SimplePage
@@ -34,8 +35,7 @@ class RenewPassword extends SimplePage
     {
         $user = Filament::auth()->user();
 
-        if (
-               ! in_array(CanRenewPassword::class, class_uses_recursive($user))
+        if (! in_array(CanRenewPassword::class, class_uses_recursive($user))
                || ! $user->needsRenewal()
         ) {
             redirect()->intended(Filament::getUrl());
@@ -93,7 +93,7 @@ class RenewPassword extends SimplePage
                             ->password()
                             ->revealable(filament()->arePasswordsRevealable())
                             ->required()
-                            ->rules(['different:data.currentPassword', PasswordRule::default()]),
+                            ->rules(['different:data.currentPassword', PasswordRule::default(), new PreventPasswordReuseRule()]),
                         TextInput::make('PasswordConfirmation')
                             ->label(__('filament-authentication::filament-authentication.field.user.confirm_password'))
                             ->password()

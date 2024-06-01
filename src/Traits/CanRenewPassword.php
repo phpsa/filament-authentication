@@ -30,6 +30,7 @@ trait CanRenewPassword
 
     public function needsRenewal(): bool
     {
+
         $period = config('filament-authentication.password_renew.renew_password_days_period');
 
         if (! is_numeric($period) || $period <= 0) {

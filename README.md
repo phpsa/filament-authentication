@@ -142,6 +142,22 @@ this will force a user to update their password, note -- all existing users will
 From V5.0.0 - there is a new validation rule that can be added to validate that a password has not been used before.
 `Phpsa\FilamentAuthentication\Rules\PreventPasswordReuseRule` - this will use the value from config `filament-authentication.password_renew.prevent_password_reuse` 0 to disable, any number of previous to block out fro re-use.
 
+-- If using socialite / Filament-socialite etc, you will need to override the `public function needsRenewal(): bool` method in the trait,
+EG:
+```php
+ use CanRenewPassword {
+        CanRenewPassword::needsRenewal as traitNeedsRenewal;
+    }
+
+    public function needsRenewal(): bool
+    {
+        if ($this->password === null && SocialiteUser::where('user_id', $this->id)->exists()) {
+            return false;
+        }
+        return $this->traitNeedsRenewal();
+    }
+```
+
 ## Authentication Log
 
 Introduced in V4.2.0 - this allows you to log each user login attempt.
