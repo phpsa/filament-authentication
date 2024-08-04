@@ -1,3 +1,11 @@
+# Upgrading V4 - V5
+
+Breaking Changes:
+- Impersonation - links now generated based on panels, so route name and path will be slightly different
+- Password Renew - added phash to the table to store previous passwords, this will be used to validate if a password has been used before.
+
+
+
 Upgrading V2 - V3
 
 - Widget / panels no longer auto-published

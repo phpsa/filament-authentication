@@ -23,6 +23,9 @@ class PasswordRenewLog extends Model
 {
     use Prunable;
 
+    //no guarding
+    protected $guarded = [];
+
     public function getConnectionName()
     {
         return config('filament-authentication.password_renew.db_connection', null) ?? $this->connection;

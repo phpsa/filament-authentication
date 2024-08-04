@@ -11,7 +11,9 @@ trait CanRenewPassword
             $field = method_exists($user, 'getAuthPasswordName') ? $user->getAuthPasswordName() : 'password';
 
             if ($user->isDirty($field)) {
-                $user->renewables()->where('created_at', now())->firstOrCreate([]);
+                $user->renewables()->where('created_at', now())->firstOrCreate([
+                    'phash' => $user->getOriginal($field),
+                ]);
             }
         });
     }
@@ -28,6 +30,7 @@ trait CanRenewPassword
 
     public function needsRenewal(): bool
     {
+
         $period = config('filament-authentication.password_renew.renew_password_days_period');
 
         if (! is_numeric($period) || $period <= 0) {

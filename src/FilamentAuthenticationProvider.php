@@ -24,6 +24,7 @@ class FilamentAuthenticationProvider extends PackageServiceProvider
             ->hasRoute('web')
             ->hasMigration('create_filament_authentication_tables')
             ->hasMigration('create_filament_password_renew_table')
+            ->hasMigration('tracks_filament_password_hashes')
             ->hasConfigFile('filament-authentication')
             ->hasCommand(InstallCommand::class)
             ->hasCommand(UpdateUserPasswordToUpdatedCommand::class)
