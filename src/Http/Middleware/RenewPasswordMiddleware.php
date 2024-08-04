@@ -25,7 +25,7 @@ class RenewPasswordMiddleware
             Filament::getCurrentPanel()->generateRouteName('auth.logout')
         )
         || $request->routeIs(
-            Filament::getCurrentPanel()->generateRouteName('auth.password.renew')
+            Filament::getCurrentPanel()->generateRouteName('fa.password.renew')
         )
         || app(ImpersonateManager::class)->isImpersonating()
         || ! in_array(
