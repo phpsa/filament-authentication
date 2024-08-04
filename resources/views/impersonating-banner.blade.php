@@ -12,7 +12,7 @@ body>div>aside
 
 <div
     id="impersonating-banner"
-    class="print:hidden bg-primary-500 absolute h-10 top-0 w-full flex items-center content-center justify-center text-gray-800"
+    class="print:hidden bg-primary-500 absolute h-10 top-0 w-full flex items-center content-center justify-center text-white"
     >
     <div>
         {{ __('filament-authentication::filament-authentication.text.impersonating') }} <strong>{{ $impersonating }}</strong>
