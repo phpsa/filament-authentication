@@ -6,7 +6,7 @@ trait CanRenewPassword
 {
     public function initializeCanRenewPassword()
     {
-        static::saving(function (self $user) {
+        static::saved(function (self $user) {
 
             $field = method_exists($user, 'getAuthPasswordName') ? $user->getAuthPasswordName() : 'password';
 
