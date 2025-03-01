@@ -31,7 +31,7 @@ class FilamentAuthentication implements Plugin
 
     public static function make(): self
     {
-        $instance = new static();
+        $instance = new static(); //@phpstan-ignore new.static
         $config = config('filament-authentication');
         $instance->overrideModels($config['models']);
         $instance->overrideResources($config['resources']);
@@ -44,6 +44,9 @@ class FilamentAuthentication implements Plugin
 
     public static function getPlugin(): self
     {
+        /**
+         * @var FilamentAuthentication
+         */
         return filament('filament-authentication');
     }
 
@@ -65,8 +68,14 @@ class FilamentAuthentication implements Plugin
 
     public function boot(Panel $panel): void
     {
+        /**
+         * @mixin \Filament\Tables\Columns\TextColumn
+         */
         TextColumn::macro('humanDate', function () {
-            /** @var \Filament\Tables\Columns\TextColumn&\Filament\Tables\Columns\Concerns\CanFormatState $this */
+            /**
+             * @var \Filament\Tables\Columns\TextColumn $this
+             * @phpstan-ignore varTag.nativeType
+             * */
             $this->formatStateUsing(fn ($state): ?string => $state ? $state->diffForHumans() : null);
 
             return $this;

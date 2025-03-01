@@ -5,6 +5,9 @@ namespace Phpsa\FilamentAuthentication\Traits;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * @phpstan-ignore trait.unused
+ */
 trait PagePolicyTrait
 {
     public function mount(): void

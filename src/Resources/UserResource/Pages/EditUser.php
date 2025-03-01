@@ -29,6 +29,7 @@ class EditUser extends EditRecord
 
     protected function afterSave(): void
     {
+        // @phpstan-ignore argument.type (record is an authenticatable user)
         Event::dispatch(new UserUpdated($this->record));
     }
 

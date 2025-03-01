@@ -8,6 +8,7 @@ use Filament\Tables\Actions\Action;
 use Illuminate\Http\RedirectResponse;
 use Lab404\Impersonate\Services\ImpersonateManager;
 use Illuminate\Contracts\Auth\Authenticatable as User;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class ImpersonateLink
@@ -24,8 +25,8 @@ class ImpersonateLink
     /**
      * Undocumented function
      *
-     * @param  Illuminate\Contracts\Auth\Authenticatable  $current
-     * @param  Illuminate\Contracts\Auth\Authenticatable&\Lab404\Impersonate\Models\Impersonate  $target
+     * @param  \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable  $current
+     * @param  \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable  $target
      * @return bool
      */
     public static function allowed(User $current, User $target): bool
@@ -38,6 +39,12 @@ class ImpersonateLink
         && (! method_exists($target, 'canBeImpersonated') || $target->canBeImpersonated());
     }
 
+    /**
+     *
+     * @param  \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable $record
+     * @return false|Redirector|RedirectResponse
+     * @throws BindingResolutionException
+     */
     public static function impersonate(User $record): false|Redirector|RedirectResponse
     {
         if (! static::allowed(Filament::auth()->user(), $record)) {

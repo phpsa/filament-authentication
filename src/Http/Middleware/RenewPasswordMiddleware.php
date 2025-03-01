@@ -31,7 +31,7 @@ class RenewPasswordMiddleware
         || ! in_array(
             CanRenewPassword::class,
             class_uses_recursive(FilamentAuthentication::getPlugin()->getModel('User'))
-        ) || ! $user->needsRenewal();
+        ) || ! $user->needsRenewal(); //@phpstan-ignore method.notFound (part of trait)
 
         // Only touch illuminate responses (avoid binary, etc)
         if ($ignore) {
@@ -43,7 +43,7 @@ class RenewPasswordMiddleware
             return $response;
         }
 
-        $panel ??= Filament::getCurrentPanel()->getId();
-        return Redirect::guest(URL::route("filament.{$panel}.fa.password.renew"));
+        $panelId = Filament::getCurrentPanel()->getId();
+        return Redirect::guest(URL::route("filament.{$panelId}.fa.password.renew"));
     }
 }

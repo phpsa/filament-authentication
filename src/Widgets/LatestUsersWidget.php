@@ -28,6 +28,7 @@ class LatestUsersWidget extends TableWidget
                 ->label('ID'),
             TextColumn::make('name')
                 ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
+            //@phpstan-ignore method.notFound (macro in package)
             TextColumn::make('created_at')
                 ->humanDate()
                 ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at'))),

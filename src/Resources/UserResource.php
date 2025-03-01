@@ -144,6 +144,7 @@ class UserResource extends Resource
         if (in_array(LogsAuthentication::class, class_uses_recursive(FilamentAuthentication::getPlugin()->getModel('User')))) {
             $columns['last_login'] = TextColumn::make('latestSuccessfullAuthentication.login_at')
             ->dateTime('Y-m-d H:i:s')
+            //@phpstan-ignore nullsafe.neverNull
             ->description(fn(Model $record) => $record->latestSuccessfullAuthentication?->ip_address ?? '-')
             ->label(strval(__('filament-authentication::filament-authentication.field.user.last_login_at')));
         }
@@ -230,6 +231,7 @@ class UserResource extends Resource
         return parent::getEloquentQuery()
             ->when(
                 FilamentAuthentication::getPlugin()->usesSoftDeletes(),
+                //@phpstan-ignore method.notFound (softDeletes)
                 fn(Builder $builder) => $builder->withTrashed()
             );
     }

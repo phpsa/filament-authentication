@@ -8,6 +8,7 @@ use Filament\Facades\Filament;
 use Filament\Pages\SimplePage;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Support\Htmlable;
@@ -17,12 +18,18 @@ use Illuminate\Validation\Rules\Password as PasswordRule;
 use Phpsa\FilamentAuthentication\Rules\PreventPasswordReuseRule;
 use Phpsa\FilamentAuthentication\Traits\CanRenewPassword;
 
+/**
+ *
+ * @property Form $form
+ * @package Phpsa\FilamentAuthentication\Pages\Auth
+ */
 class RenewPassword extends SimplePage
 {
     use InteractsWithFormActions;
 
     /**
      * @var view-string
+     * @phpstan-ignore property.defaultValue
      */
     protected static string $view = 'filament-authentication::pages.auth.renew-password';
 
@@ -36,7 +43,7 @@ class RenewPassword extends SimplePage
         $user = Filament::auth()->user();
 
         if (! in_array(CanRenewPassword::class, class_uses_recursive($user))
-               || ! $user->needsRenewal()
+               || ! $user->needsRenewal() //@phpstan-ignore method.notFound (part of trait)
         ) {
             redirect()->intended(Filament::getUrl());
         }
@@ -46,11 +53,14 @@ class RenewPassword extends SimplePage
 
     public function renew()
     {
+        /**
+         * @var array{password: string, currentPassword: string} $data
+         */
         $data = $this->form->getState();
 
         $user = Filament::auth()->user();
 
-        $user->password = $data['password'];
+        $user->password = $data['password']; //@phpstan-ignore property.notFound
         $user->save();
 
         if (request()->hasSession()) {

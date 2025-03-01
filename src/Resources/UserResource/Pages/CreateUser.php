@@ -17,6 +17,7 @@ class CreateUser extends CreateRecord
 
     protected function afterCreate(): void
     {
+        // @phpstan-ignore argument.type (record is an authenticatable user)
         Event::dispatch(new UserCreated($this->record));
     }
 }

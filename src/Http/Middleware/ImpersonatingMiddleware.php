@@ -10,6 +10,14 @@ use Lab404\Impersonate\Services\ImpersonateManager;
 
 class ImpersonatingMiddleware
 {
+
+    /**
+     *
+     * @var view-string view to render
+     * @phpstan-ignore property.defaultValue
+     */
+    protected string $view = 'filament-authentication::impersonating-banner';
+
     public function handle(Request $request, \Closure $next)
     {
         $response = $next($request);
@@ -25,7 +33,6 @@ class ImpersonatingMiddleware
             str_replace(
                 '</body>',
                 $this->getHtmlContent($request) . '</body>',
-                // @phpstan-ignore-next-line
                 $response->getContent()
             )
         );
@@ -33,16 +40,16 @@ class ImpersonatingMiddleware
 
     protected function getHtmlContent($request): string
     {
-        $panel ??= Filament::getCurrentPanel()->getId();
-        return view('filament-authentication::impersonating-banner', [
+        $panel = Filament::getCurrentPanel()->getId();
+        return view($this->view, [
             'panel'         => $panel,
             'impersonating' => Filament::getUserName(auth()->user())
         ])->render();
     }
 
-    protected function setJsonContent(Response $response): Response
+    protected function setJsonContent(JsonResponse|Response $response): JsonResponse|Response
     {
-        $data = $response->getResponseData($response);
+        $data = $this->getResponseData($response);
         if ($data === false || ! is_object($data)) {
             return $response;
         }
@@ -52,10 +59,9 @@ class ImpersonatingMiddleware
         return $this->setResponseData($response, $data);
     }
 
-    protected function getResponseData(Response $response)
+    protected function getResponseData(JsonResponse|Response $response)
     {
         if ($response instanceof JsonResponse) {
-            /** @var $response JsonResponse */
             return $response->getData() ?: new \StdClass();
         }
 
@@ -64,10 +70,9 @@ class ImpersonatingMiddleware
         return json_decode($content) ?: false;
     }
 
-    protected function setResponseData(Response $response, $data)
+    protected function setResponseData(JsonResponse|Response $response, $data): JsonResponse|Response
     {
         if ($response instanceof JsonResponse) {
-            /** @var $response JsonResponse */
             return $response->setData($data);
         }
 

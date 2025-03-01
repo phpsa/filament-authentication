@@ -1,0 +1,10 @@
+<?php
+
+namespace Filament\Facades;
+
+abstract class Facade {}
+
+/**
+ * @mixin \Filament\FilamentManager
+ */
+class Filament extends Facade {}

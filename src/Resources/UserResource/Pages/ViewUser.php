@@ -28,7 +28,7 @@ class ViewUser extends ViewRecord
 
     protected function impersonateAction(): ?Action
     {
-        /** @var \Illuminate\Contracts\Auth\Authenticatable */
+        /** @var \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable */
         $record = $this->getRecord();
         $user = Filament::auth()->user();
         if ($user === null || ImpersonateLink::allowed($user, $record) === false) {

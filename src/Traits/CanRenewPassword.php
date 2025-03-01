@@ -2,6 +2,9 @@
 
 namespace Phpsa\FilamentAuthentication\Traits;
 
+/**
+ * @phpstan-ignore trait.unused
+ */
 trait CanRenewPassword
 {
     public function initializeCanRenewPassword()

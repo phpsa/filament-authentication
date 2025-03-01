@@ -32,7 +32,7 @@ class AuthenticationLoggingSubscriber
 
     protected function shouldLogAuthentication(?Authenticatable $user): bool
     {
-        return !is_null($user) && in_array(LogsAuthentication::class, class_uses_recursive(get_class($user)));
+        return ! is_null($user) && in_array(LogsAuthentication::class, class_uses_recursive(get_class($user)));
     }
 
     protected function logEvent(?Authenticatable $user, bool $wasSuccessful, array $overrides = [])
@@ -40,7 +40,7 @@ class AuthenticationLoggingSubscriber
         if (! $this->shouldLogAuthentication($user)) {
             return;
         }
-
+        //@phpstan-ignore method.notFound (authentications added in trait)
         return $user->authentications()->create([
             'ip_address'       => $this->request->ip(),
             'user_agent'       => $this->request->userAgent(),
@@ -74,6 +74,7 @@ class AuthenticationLoggingSubscriber
 
         $ip = $this->request->ip();
         $userAgent = $this->request->userAgent();
+        //@phpstan-ignore method.notFound (authentications added in trait)
         $log = $user->authentications()
             ->whereIpAddress($ip)
             ->whereUserAgent($userAgent)
@@ -86,6 +87,7 @@ class AuthenticationLoggingSubscriber
             ]);
         $log->logout_at = now();
 
+        //@phpstan-ignore method.notFound (authentications added in trait)
         $user->authentications()->save($log);
     }
 
@@ -108,6 +110,7 @@ class AuthenticationLoggingSubscriber
 
         $ip = $this->request->ip();
         $userAgent = $this->request->userAgent();
+        //@phpstan-ignore method.notFound (authentications added in trait)
         $log = $user->authentications()
             ->whereIpAddress($ip)
             ->whereUserAgent($userAgent)
@@ -119,6 +122,7 @@ class AuthenticationLoggingSubscriber
 
             ]);
 
+            //@phpstan-ignore method.notFound (authentications added in trait)
         $user->authentications()->whereLoginSuccessful(true)->whereNull('logout_at')
             ->whereKeyNot($log->getKey())->update([
                 'logout_at'       => now(),

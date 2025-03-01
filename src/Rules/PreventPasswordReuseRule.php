@@ -10,6 +10,8 @@ use Phpsa\FilamentAuthentication\Models\PasswordRenewLog;
 class PreventPasswordReuseRule implements ValidationRule
 {
 
+    protected ?Authenticatable $user;
+
     public function __construct(?Authenticatable $user = null)
     {
         $this->user = $user ?? auth()->user();
