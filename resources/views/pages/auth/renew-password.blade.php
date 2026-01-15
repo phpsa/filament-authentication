@@ -7,15 +7,14 @@
         </x-slot>
     @endif
 
-    <x-filament-panels::form wire:submit="renew">
+    <form wire:submit="renew">
         {{ $this->form }}
 
         <x-filament::button
             type="submit"
-            form="renew"
-            class="w-full"
+            class="w-full mt-6"
         >
             {{ __('filament-authentication::filament-authentication.pages.renew-password.actions.renew.label') }}
         </x-filament::button>
-    </x-filament-panels::form>
+    </form>
 </x-filament-panels::page.simple>
