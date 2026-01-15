@@ -24,12 +24,12 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "php": "^8.1",
-    "filament/filament": "^3.0",
-    "illuminate/support": "^9.0|^10|^11|^12.0",
+    "php": "^8.2",
+    "filament/filament": "^4.0",
+    "illuminate/support": "^11|^12.0",
     "lab404/laravel-impersonate": "^1.7",
     "spatie/laravel-package-tools": "^1.13",
-    "spatie/laravel-permission": "^5.5|^6.0"
+    "spatie/laravel-permission": "^6.0"
   },
   "require-dev": {
     "laravel/pint": "^1.2",
