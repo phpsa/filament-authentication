@@ -80,7 +80,27 @@ class RenewPassword extends SimplePage
 
     public function form(Schema $schema): Schema
     {
-        return $schema;
+        return $schema
+            ->schema([
+                TextInput::make('currentPassword')
+                    ->label(__('filament-authentication::filament-authentication.field.user.current_password'))
+                    ->password()
+                    ->required()
+                    ->rule('current_password:' . filament()->getAuthGuard()),
+                TextInput::make('password')
+                    ->label(__('filament-authentication::filament-authentication.field.user.password'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required()
+                    ->rules(['different:currentPassword', PasswordRule::default(), new PreventPasswordReuseRule()]),
+                TextInput::make('passwordConfirmation')
+                    ->label(__('filament-authentication::filament-authentication.field.user.confirm_password'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required()
+                    ->same('password'),
+            ])
+            ->statePath('data');
     }
 
     /**
@@ -92,26 +112,6 @@ class RenewPassword extends SimplePage
         return [
             'form' => $this->form(
                 $this->makeForm()
-                    ->schema([
-                        TextInput::make('currentPassword')
-                            ->label(__('filament-authentication::filament-authentication.field.user.current_password'))
-                            ->password()
-                            ->required()
-                            ->rule('current_password:' . filament()->getAuthGuard()),
-                        TextInput::make('password')
-                            ->label(__('filament-authentication::filament-authentication.field.user.password'))
-                            ->password()
-                            ->revealable(filament()->arePasswordsRevealable())
-                            ->required()
-                            ->rules(['different:data.currentPassword', PasswordRule::default(), new PreventPasswordReuseRule()]),
-                        TextInput::make('PasswordConfirmation')
-                            ->label(__('filament-authentication::filament-authentication.field.user.confirm_password'))
-                            ->password()
-                            ->revealable(filament()->arePasswordsRevealable())
-                            ->required()
-                            ->same('password'),
-                    ])
-                    ->statePath('data'),
             ),
         ];
     }
