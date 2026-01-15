@@ -2,15 +2,15 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\PermissionResource\RelationManager;
 
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
+use Filament\Actions\CreateAction;
+use Filament\Actions\AttachAction;
+use Filament\Actions\DetachAction;
+use Filament\Actions\DissociateBulkAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\AttachAction;
-use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Actions\DetachAction;
 use Spatie\Permission\PermissionRegistrar;
-use Filament\Tables\Actions\DissociateBulkAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
@@ -20,10 +20,10 @@ class RoleRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 TextInput::make('name')
                     ->label(strval(__('filament-authentication::filament-authentication.field.name'))),
                 TextInput::make('guard_name')
@@ -49,11 +49,11 @@ class RoleRelationManager extends RelationManager
                 ->recordSelect(fn($select) => $select->multiple())
                 ->closeModalByClickingAway(false),
             ])
-            ->actions([
+            ->recordActions([
                 DetachAction::make()
             ])
 
-            ->bulkActions([
+            ->toolbarActions([
 
                 DissociateBulkAction::make(),
 

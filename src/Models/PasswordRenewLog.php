@@ -2,6 +2,7 @@
 
 namespace Phpsa\FilamentAuthentication\Models;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Prunable;
@@ -13,9 +14,9 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property int $authenticatable_id
  * @property string|null $ip_address
  * @property string|null $user_agent
- * @property \Illuminate\Support\Carbon|null $login_at
+ * @property Carbon|null $login_at
  * @property bool $login_successful
- * @property \Illuminate\Support\Carbon|null $logout_at
+ * @property Carbon|null $logout_at
  * @property bool $cleared_by_user
  * @property array|null $location
  */

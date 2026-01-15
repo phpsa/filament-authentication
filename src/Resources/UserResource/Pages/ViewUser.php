@@ -2,6 +2,8 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\UserResource\Pages;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Actions\EditAction;
@@ -28,7 +30,7 @@ class ViewUser extends ViewRecord
 
     protected function impersonateAction(): ?Action
     {
-        /** @var \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable */
+        /** @var Model&Authenticatable */
         $record = $this->getRecord();
         $user = Filament::auth()->user();
         if ($user === null || ImpersonateLink::allowed($user, $record) === false) {

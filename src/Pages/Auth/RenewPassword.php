@@ -2,7 +2,7 @@
 
 namespace Phpsa\FilamentAuthentication\Pages\Auth;
 
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Pages\SimplePage;
@@ -20,7 +20,7 @@ use Phpsa\FilamentAuthentication\Traits\CanRenewPassword;
 
 /**
  *
- * @property Form $form
+ * @property \Filament\Schemas\Schema $form
  * @package Phpsa\FilamentAuthentication\Pages\Auth
  */
 class RenewPassword extends SimplePage
@@ -31,7 +31,7 @@ class RenewPassword extends SimplePage
      * @var view-string
      * @phpstan-ignore property.defaultValue
      */
-    protected static string $view = 'filament-authentication::pages.auth.renew-password';
+    protected string $view = 'filament-authentication::pages.auth.renew-password';
 
     /**
      * @var array<string, mixed> | null
@@ -78,13 +78,13 @@ class RenewPassword extends SimplePage
         return redirect()->intended(Filament::getUrl());
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form;
+        return $schema;
     }
 
     /**
-     * @return array<int | string, string | Form>
+     * @return array<int|string, string|\Filament\Schemas\Schema>
      */
     protected function getForms(): array
     {

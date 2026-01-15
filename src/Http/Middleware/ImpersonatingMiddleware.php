@@ -2,6 +2,8 @@
 
 namespace Phpsa\FilamentAuthentication\Http\Middleware;
 
+use Closure;
+use StdClass;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Filament\Facades\Filament;
@@ -18,7 +20,7 @@ class ImpersonatingMiddleware
      */
     protected string $view = 'filament-authentication::impersonating-banner';
 
-    public function handle(Request $request, \Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
 
@@ -40,7 +42,7 @@ class ImpersonatingMiddleware
 
     protected function getHtmlContent($request): string
     {
-        $panel = Filament::getCurrentPanel()->getId();
+        $panel = Filament::getCurrentOrDefaultPanel()->getId();
         return view($this->view, [
             'panel'         => $panel,
             'impersonating' => Filament::getUserName(auth()->user())
@@ -62,7 +64,7 @@ class ImpersonatingMiddleware
     protected function getResponseData(JsonResponse|Response $response)
     {
         if ($response instanceof JsonResponse) {
-            return $response->getData() ?: new \StdClass();
+            return $response->getData() ?: new StdClass();
         }
 
         $content = $response->getContent();

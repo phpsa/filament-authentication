@@ -22,10 +22,10 @@ class RenewPasswordMiddleware
 
         $ignore = ! ($response instanceof Response) || $user === null
         || $request->routeIs(
-            Filament::getCurrentPanel()->generateRouteName('auth.logout')
+            Filament::getCurrentOrDefaultPanel()->generateRouteName('auth.logout')
         )
         || $request->routeIs(
-            Filament::getCurrentPanel()->generateRouteName('fa.password.renew')
+            Filament::getCurrentOrDefaultPanel()->generateRouteName('fa.password.renew')
         )
         || app(ImpersonateManager::class)->isImpersonating()
         || ! in_array(
@@ -43,7 +43,7 @@ class RenewPasswordMiddleware
             return $response;
         }
 
-        $panelId = Filament::getCurrentPanel()->getId();
+        $panelId = Filament::getCurrentOrDefaultPanel()->getId();
         return Redirect::guest(URL::route("filament.{$panelId}.fa.password.renew"));
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Phpsa\FilamentAuthentication\Resources\RoleResource\RelationManager;
 
+use Filament\Actions\AttachAction;
+use Filament\Actions\DetachAction;
+use Filament\Actions\DissociateBulkAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Actions\AttachAction;
-use Filament\Tables\Actions\DetachAction;
 use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DissociateBulkAction;
 use Filament\Resources\RelationManagers\RelationManager;
 
 class UserRelationManager extends RelationManager
@@ -38,11 +38,11 @@ class UserRelationManager extends RelationManager
                 // ...
                 AttachAction::make(),
             ])
-            ->actions([
+            ->recordActions([
                 DetachAction::make()
             ])
 
-            ->bulkActions([
+            ->toolbarActions([
 
                 DissociateBulkAction::make(),
 

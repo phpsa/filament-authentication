@@ -50,7 +50,7 @@ class AuthenticationLogsRelationManager extends RelationManager
                         }
                         // @phpstan-ignore property.notFound (model is dynamic)
                         $AuthClass = $record->authenticatable::class;
-                        return new HtmlString('<a href="' . route('filament.' . Filament::getCurrentPanel()->getId() . '.resources.' . Str::plural((Str::lower(class_basename($AuthClass)))) . '.edit', ['record' => $record->authenticatable_id]) . '" class="inline-flex items-center justify-center hover:underline focus:outline-none focus:underline filament-tables-link text-primary-600 hover:text-primary-500 text-sm font-medium filament-tables-link-action">' . class_basename($AuthClass) . '</a>');
+                        return new HtmlString('<a href="' . route('filament.' . Filament::getCurrentOrDefaultPanel()->getId() . '.resources.' . Str::plural((Str::lower(class_basename($AuthClass)))) . '.edit', ['record' => $record->authenticatable_id]) . '" class="inline-flex items-center justify-center hover:underline focus:outline-none focus:underline filament-tables-link text-primary-600 hover:text-primary-500 text-sm font-medium filament-tables-link-action">' . class_basename($AuthClass) . '</a>');
                     })
                     ->sortable(),
                 TextColumn::make('ip_address')
@@ -94,10 +94,10 @@ class AuthenticationLogsRelationManager extends RelationManager
             ->headerActions([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 //
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 //
             ]);
     }

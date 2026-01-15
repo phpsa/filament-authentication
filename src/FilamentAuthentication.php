@@ -69,11 +69,11 @@ class FilamentAuthentication implements Plugin
     public function boot(Panel $panel): void
     {
         /**
-         * @mixin \Filament\Tables\Columns\TextColumn
+         * @mixin TextColumn
          */
         TextColumn::macro('humanDate', function () {
             /**
-             * @var \Filament\Tables\Columns\TextColumn $this
+             * @var TextColumn $this
              * @phpstan-ignore varTag.nativeType
              * */
             $this->formatStateUsing(fn ($state): ?string => $state ? $state->diffForHumans() : null);

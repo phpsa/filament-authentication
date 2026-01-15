@@ -2,6 +2,7 @@
 
 namespace Phpsa\FilamentAuthentication\Events;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Queue\SerializesModels;
 
 class UserUpdated
@@ -11,14 +12,14 @@ class UserUpdated
     /**
      * The authenticated user.
      *
-     * @var \Illuminate\Contracts\Auth\Authenticatable
+     * @var Authenticatable
      */
     public $user;
 
     /**
      * Create a new event instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param Authenticatable $user
      * @return void
      */
     public function __construct($user)

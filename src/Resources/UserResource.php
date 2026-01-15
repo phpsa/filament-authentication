@@ -2,27 +2,28 @@
 
 namespace Phpsa\FilamentAuthentication\Resources;
 
-use Filament\Forms\Get;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\ViewAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Select;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TernaryFilter;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Forms\Components\Section as Card;
-use Filament\Tables\Actions\ForceDeleteAction;
-use Filament\Tables\Actions\RestoreBulkAction;
-use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Phpsa\FilamentAuthentication\FilamentAuthentication;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use Phpsa\FilamentAuthentication\Traits\CanRenewPassword;
@@ -72,12 +73,12 @@ class UserResource extends Resource
     {
         return config('filament-authentication.navigation.user.sort');
     }
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
 
-        return $form
-            ->schema([
-                Card::make()
+        return $schema
+            ->components([
+                Section::make()
                     ->schema([
                         'name'                 => TextInput::make('name')
                             ->label(strval(__('filament-authentication::filament-authentication.field.user.name')))
@@ -165,7 +166,7 @@ class UserResource extends Resource
         ];
 
         if (FilamentAuthentication::getPlugin()->usesSoftDeletes()) {
-            $filters['trashed'] = \Filament\Tables\Filters\TrashedFilter::make();
+            $filters['trashed'] = TrashedFilter::make();
         }
 
         return $filters;
@@ -202,8 +203,8 @@ class UserResource extends Resource
         return $table
         ->columns(static::getTableColumns())
             ->filters(static::getTableFilters())
-            ->actions(static::getTableActions())
-            ->bulkActions(static::getTableBulkActions());
+            ->recordActions(static::getTableActions())
+            ->toolbarActions(static::getTableBulkActions());
     }
 
     public static function getRelations(): array

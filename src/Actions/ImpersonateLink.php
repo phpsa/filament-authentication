@@ -2,9 +2,10 @@
 
 namespace Phpsa\FilamentAuthentication\Actions;
 
+use Filament\Actions\Action;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Facades\Filament;
 use Illuminate\Routing\Redirector;
-use Filament\Tables\Actions\Action;
 use Illuminate\Http\RedirectResponse;
 use Lab404\Impersonate\Services\ImpersonateManager;
 use Illuminate\Contracts\Auth\Authenticatable as User;
@@ -25,8 +26,8 @@ class ImpersonateLink
     /**
      * Undocumented function
      *
-     * @param  \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable  $current
-     * @param  \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable  $target
+     * @param Model&\Illuminate\Contracts\Auth\Authenticatable $current
+     * @param Model&\Illuminate\Contracts\Auth\Authenticatable $target
      * @return bool
      */
     public static function allowed(User $current, User $target): bool
@@ -41,7 +42,7 @@ class ImpersonateLink
 
     /**
      *
-     * @param  \Illuminate\Database\Eloquent\Model&\Illuminate\Contracts\Auth\Authenticatable $record
+     * @param Model&\Illuminate\Contracts\Auth\Authenticatable $record
      * @return false|Redirector|RedirectResponse
      * @throws BindingResolutionException
      */
