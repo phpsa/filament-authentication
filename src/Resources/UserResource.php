@@ -35,8 +35,6 @@ use Phpsa\FilamentAuthentication\Resources\UserResource\RelationManager\Authenti
 
 class UserResource extends Resource
 {
-    protected static ?string $navigationIcon = 'heroicon-o-user';
-
     protected static ?string $recordTitleAttribute = 'name';
 
 

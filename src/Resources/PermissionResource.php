@@ -26,8 +26,6 @@ class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
-
     public static function getModel(): string
     {
         return FilamentAuthentication::getPlugin()->getModel('Permission');

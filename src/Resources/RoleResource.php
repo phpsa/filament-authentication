@@ -27,8 +27,6 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
-
     public static function getModel(): string
     {
         return FilamentAuthentication::getPlugin()->getModel('Role');
