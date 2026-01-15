@@ -1,12 +1,3 @@
 <x-filament-panels::page.simple>
-    <form wire:submit="renew">
-        {{ $this->form }}
-
-        <x-filament::button
-            type="submit"
-            class="w-full mt-6"
-        >
-            {{ __('filament-authentication::filament-authentication.form.actions.renew.label') }}
-        </x-filament::button>
-    </form>
+    {{ $this->content }}
 </x-filament-panels::page.simple>
