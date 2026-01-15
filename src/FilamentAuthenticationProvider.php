@@ -11,6 +11,8 @@ use Phpsa\FilamentAuthentication\Commands\InstallCommand;
 use Phpsa\FilamentAuthentication\Pages\Auth\RenewPassword;
 use Phpsa\FilamentAuthentication\Commands\UpdateUserPasswordToUpdatedCommand;
 use Phpsa\FilamentAuthentication\Subscribers\AuthenticationLoggingSubscriber;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Assets\Css;
 
 class FilamentAuthenticationProvider extends PackageServiceProvider
 {
@@ -35,6 +37,9 @@ class FilamentAuthenticationProvider extends PackageServiceProvider
 
     public function packageBooted()
     {
+        FilamentAsset::register([
+            Css::make('impersonating-banner', __DIR__ . '/../resources/css/impersonating-banner.css'),
+        ], 'phpsa/filament-authentication');
 
         Livewire::component('phpsa.filament-authentication.pages.auth.renew-password', RenewPassword::class);
 

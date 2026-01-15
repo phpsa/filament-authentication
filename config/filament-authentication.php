@@ -38,6 +38,7 @@ return [
     ],
     'preload_roles'       => true,
     'preload_permissions' => true,
+    'group_menu_actions'  => true,
     'impersonate'         => [
         'enabled'  => false,
         'guard'    => 'web',

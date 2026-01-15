@@ -14,6 +14,7 @@ use Filament\Actions\RestoreAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\ActionGroup;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
@@ -108,7 +109,7 @@ class UserResource extends Resource
                             ->relationship('roles', 'name')
                             ->preload(FilamentAuthentication::getPlugin()->getPreloadRoles())
                             ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
-                    ])->columns(2),
+                    ])->columns(2)->columnSpanFull(),
             ]);
     }
 
@@ -178,12 +179,20 @@ class UserResource extends Resource
             'view'         => ViewAction::make(),
             'edit'         => EditAction::make(),
             'impersonate'  => FilamentAuthentication::getPlugin()->impersonateEnabled() ? ImpersonateLink::make() : null,
-            'delete'       => DeleteAction::make(),
+            'delete'       => DeleteAction::make()->hidden(fn (Model $record): bool => $record->id === auth()->id()),
             'force_delete' => FilamentAuthentication::getPlugin()->usesSoftDeletes() ? ForceDeleteAction::make() : null,
             'restore'      => FilamentAuthentication::getPlugin()->usesSoftDeletes() ? RestoreAction::make() : null,
         ];
 
-        return array_filter($actions);
+        $filteredActions = array_filter($actions);
+
+        if (FilamentAuthentication::getPlugin()->groupMenuActions()) {
+            return [
+                ActionGroup::make($filteredActions),
+            ];
+        }
+
+        return $filteredActions;
     }
 
     protected static function getTableBulkActions(): array
@@ -204,7 +213,10 @@ class UserResource extends Resource
         ->columns(static::getTableColumns())
             ->filters(static::getTableFilters())
             ->recordActions(static::getTableActions())
-            ->toolbarActions(static::getTableBulkActions());
+            ->toolbarActions(static::getTableBulkActions())
+            ->checkIfRecordIsSelectableUsing(
+                fn (Model $record): bool => $record->id !== auth()->id()
+            );
     }
 
     public static function getRelations(): array

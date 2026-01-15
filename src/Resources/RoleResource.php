@@ -80,7 +80,8 @@ class RoleResource extends Resource
                                     ->default(config('auth.defaults.guard')),
 
                             ]),
-                    ]),
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 

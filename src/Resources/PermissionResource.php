@@ -78,7 +78,8 @@ class PermissionResource extends Resource
                                 ->default(config('auth.defaults.guard')),
 
                         ]),
-                    ]),
+                    ])
+                    ->columnSpanFull(),
             ]);
     }
 

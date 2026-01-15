@@ -22,10 +22,10 @@ class ViewUser extends ViewRecord
 
     protected function getHeaderActions(): array
     {
-        return collect([
+        return array_filter([
             EditAction::make(),
             $this->impersonateAction(),
-        ])->filter()->toArray();
+        ]);
     }
 
     protected function impersonateAction(): ?Action

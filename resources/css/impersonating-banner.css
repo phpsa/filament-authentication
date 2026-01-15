@@ -1,0 +1,26 @@
+#impersonating-banner {
+    @apply fixed top-0 left-0 right-0 w-full h-10 flex items-center justify-center z-[9999] shadow-lg;
+    @apply bg-sky-500 text-white;
+}
+
+#impersonating-banner .banner-content {
+    @apply text-sm font-medium;
+}
+
+#impersonating-banner .banner-link {
+    @apply ml-4 underline hover:no-underline font-bold;
+}
+
+html.impersonating {
+    padding-top: 40px !important;
+}
+
+@media print {
+    html.impersonating {
+        padding-top: 0 !important;
+    }
+    
+    #impersonating-banner {
+        @apply hidden;
+    }
+}

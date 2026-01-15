@@ -114,6 +114,11 @@ class FilamentAuthentication implements Plugin
         return $this->impersonate;
     }
 
+    public function groupMenuActions(): bool
+    {
+        return (bool) config('filament-authentication.group_menu_actions', true);
+    }
+
     public function getImpersonateGuard(): string
     {
         return $this->impersonateGuard;

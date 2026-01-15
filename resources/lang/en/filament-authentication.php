@@ -52,7 +52,7 @@ return [
 
     'button.impersonate'                         => "Impersonate User",
     'text.impersonating'                         => 'Impersonating User: ',
-    'text.impersonating.end'                     => ' - End Impersonation ',
+    'text.impersonating.end'                     => ' End Impersonation ',
 
     'text.profile'                               => 'Profile',
 

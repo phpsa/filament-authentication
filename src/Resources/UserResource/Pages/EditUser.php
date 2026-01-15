@@ -13,6 +13,8 @@ use Phpsa\FilamentAuthentication\FilamentAuthentication;
 
 class EditUser extends EditRecord
 {
+
+
     public static function getResource(): string
     {
         return FilamentAuthentication::getPlugin()->getResource('UserResource');
@@ -37,7 +39,7 @@ class EditUser extends EditRecord
     {
         return [
             ViewAction::make(),
-            DeleteAction::make(),
+            DeleteAction::make()->hidden(fn (mixed $record): bool => $record->id === auth()->id()),
             RestoreAction::make(),
         ];
     }

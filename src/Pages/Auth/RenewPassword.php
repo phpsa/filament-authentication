@@ -17,6 +17,10 @@ use Yebor974\Filament\RenewPassword\RenewPasswordPlugin;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 use Phpsa\FilamentAuthentication\Rules\PreventPasswordReuseRule;
 use Phpsa\FilamentAuthentication\Traits\CanRenewPassword;
+use Filament\Schemas\Components\Actions;
+use Filament\Schemas\Components\Component;
+use Filament\Schemas\Components\EmbeddedSchema;
+use Filament\Schemas\Components\Form;
 
 /**
  *
@@ -103,17 +107,25 @@ class RenewPassword extends SimplePage
             ->statePath('data');
     }
 
-    /**
-     * @return array<int|string, string|\Filament\Schemas\Schema>
-     */
-    protected function getForms(): array
+    public function content(Schema $schema): Schema
     {
+        return $schema
+            ->components([
+                $this->getFormContentComponent(),
+            ]);
+    }
 
-        return [
-            'form' => $this->form(
-                $this->makeForm()
-            ),
-        ];
+    public function getFormContentComponent(): Component
+    {
+        return Form::make([EmbeddedSchema::make('form')])
+            ->id('form')
+            ->livewireSubmitHandler('renew')
+            ->footer([
+                Actions::make($this->getFormActions())
+                    ->alignment($this->getFormActionsAlignment())
+                    ->fullWidth($this->hasFullWidthFormActions())
+                    ->key('form-actions'),
+            ]);
     }
 
     protected function hasFullWidthFormActions(): bool
@@ -130,10 +142,14 @@ class RenewPassword extends SimplePage
 
     protected function getRenewFormAction(): Action
     {
-
         return Action::make('renew')
             ->label(__('filament-authentication::filament-authentication.form.actions.renew.label'))
             ->submit('renew');
+    }
+
+    public function getFormActionsAlignment(): string
+    {
+        return 'start';
     }
 
     public function getTitle(): string | Htmlable
