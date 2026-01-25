@@ -14,7 +14,6 @@ use Filament\Actions\RestoreAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ForceDeleteBulkAction;
-use Filament\Actions\ActionGroup;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
@@ -184,15 +183,7 @@ class UserResource extends Resource
             'restore'      => FilamentAuthentication::getPlugin()->usesSoftDeletes() ? RestoreAction::make() : null,
         ];
 
-        $filteredActions = array_filter($actions);
-
-        if (FilamentAuthentication::getPlugin()->groupMenuActions()) {
-            return [
-                ActionGroup::make($filteredActions),
-            ];
-        }
-
-        return $filteredActions;
+        return array_filter($actions);
     }
 
     protected static function getTableBulkActions(): array
@@ -213,10 +204,7 @@ class UserResource extends Resource
         ->columns(static::getTableColumns())
             ->filters(static::getTableFilters())
             ->recordActions(static::getTableActions())
-            ->toolbarActions(static::getTableBulkActions())
-            ->checkIfRecordIsSelectableUsing(
-                fn (Model $record): bool => $record->id !== auth()->id()
-            );
+            ->toolbarActions(static::getTableBulkActions());
     }
 
     public static function getRelations(): array
